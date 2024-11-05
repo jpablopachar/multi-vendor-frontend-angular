@@ -1,0 +1,6 @@
+export * from './change-password.component'
+export * from './chat.component'
+export * from './dashboard.component'
+export * from './order-details.component'
+export * from './orders.component'
+export * from './whishlist.component'
