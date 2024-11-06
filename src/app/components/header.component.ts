@@ -27,9 +27,12 @@ import {
 } from '@fortawesome/free-brands-svg-icons'
 import {
   faCartShopping,
+  faChevronDown,
+  faEnvelope,
   faHeart,
   faList,
   faLock,
+  faPhone,
   faPhoneAlt,
   faUser,
 } from '@fortawesome/free-solid-svg-icons'
@@ -67,6 +70,9 @@ export class HeaderComponent implements OnInit {
   public faList: IconDefinition = faList;
   public faPhoneAlt: IconDefinition = faPhoneAlt;
   public faCartShopping: IconDefinition = faCartShopping;
+  public faPhone: IconDefinition = faPhone;
+  public faEnvelope: IconDefinition = faEnvelope;
+  public faChevronDown: IconDefinition = faChevronDown;
 
   constructor() {
     effect((): void => {

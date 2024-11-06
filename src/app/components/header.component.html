@@ -10,13 +10,13 @@
                     <li
                         class="flex relative justify-center items-center gap-2 text-sm after:absolute after:h-[18px] after:w-[1px] after:bg-[#afafaf] after:-right-[16px]"
                     >
-                        <fa-icon [icon]="faUser"></fa-icon>
+                        <fa-icon [icon]="faEnvelope"></fa-icon>
                         <span>support&#64;gmail.com</span>
                     </li>
                     <li
                         class="flex relative justify-center items-center gap-2 text-sm"
                     >
-                        <fa-icon [icon]="faPhoneAlt"></fa-icon>
+                        <fa-icon [icon]="faPhone"></fa-icon>
                         <span>+(123) 3243 343</span>
                     </li>
                 </ul>
@@ -42,7 +42,7 @@
                             class="flex group cursor-pointer text-slate-800 text-sm justify-center items-center gap-1 relative after:h-[18px] after:w-[1px] after:bg-[#afafaf] after:-right-[16px] after:absolute before:absolute before:h-[18px] before:bg-[#afafaf] before:w-[1px] before:-left-[20px]"
                         >
                             <img src="images/language.png" alt="" />
-                            <fa-icon [icon]="faUser"></fa-icon>
+                            <fa-icon [icon]="faChevronDown"></fa-icon>
                             <ul
                                 class="absolute invisible transition-all top-12 rounded-sm duration-200 text-white p-2 w-[100px] flex flex-col gap-3 group-hover:visible group-hover:top-6 group-hover:bg-black z-10"
                             >
@@ -184,7 +184,6 @@
         </div>
     }                   -->
                                 </div>
-
                                 <div
                                     class="relative flex justify-center items-center cursor-pointer w-[35px] h-[35px] rounded-full bg-[#e2e2e2]"
                                     (click)="redirectCardPage()"
@@ -194,7 +193,6 @@
                                             [icon]="faCartShopping"
                                         ></fa-icon
                                     ></span>
-
                                     <!-- {
             card_product_count !== 0 && <div class='w-[20px] h-[20px] absolute bg-red-500 rounded-full text-white flex justify-center items-center -top-[3px] -right-[5px] '>
                 {
@@ -227,7 +225,7 @@
                         class="flex group cursor-pointer text-slate-800 text-sm justify-center items-center gap-1 relative after:h-[18px] after:w-[1px] after:bg-[#afafaf] after:-right-[16px] after:absolute"
                     >
                         <img src="images/language.png" alt="" />
-                        <fa-icon [icon]="faUser"></fa-icon>
+                        <fa-icon [icon]="faChevronDown"></fa-icon>
                         <ul
                             class="absolute invisible transition-all top-12 rounded-sm duration-200 text-white p-2 w-[100px] flex flex-col gap-3 group-hover:visible group-hover:top-6 group-hover:bg-black z-10"
                         >
@@ -329,7 +327,7 @@
                     <div
                         class="w-[48px] h-[48px] rounded-full flex bg-[#f5f5f5] justify-center items-center"
                     >
-                        <!-- <span><FaPhoneAlt /></span> -->
+                        <fa-icon [icon]="faPhoneAlt"></fa-icon>
                     </div>
                     <div class="flex justify-end flex-col gap-1">
                         <h2 class="text-sm font-medium text-slate-700">
@@ -342,7 +340,7 @@
                     class="flex flex-col justify-start items-start gap-3 text-[#1c1c1c]"
                 >
                     <li class="flex justify-start items-center gap-2 text-sm">
-                        <!-- <span><MdEmail /></span> -->
+                        <fa-icon [icon]="faEnvelope"></fa-icon>
                         <span>support&#64;gmail.com</span>
                     </li>
                 </ul>
@@ -361,9 +359,8 @@
                             <fa-icon [icon]="faList"></fa-icon>
                             <span>All Category </span>
                         </div>
-                        <!-- <span class='pt-1'><IoIosArrowDown /></span> -->
+                        <span class='pt-1'><fa-icon [icon]="faChevronDown"></fa-icon></span>
                     </div>
-
                     <div
                         class="overflow-hidden transition-all md-lg:relative duration-500 absolute z-[99999] bg-[#dbf3ed] w-full border-x"
                         [ngClass]="$showCategory() ? 'h-0' : 'h-[400px]'"
@@ -415,9 +412,6 @@
                                         {{ category.name }}
                                     </option>
                                     }
-                                    <!-- {
-                        categorys.map((c, i) => <option key={i} value={c.name}> {c.name} </option> )
-                    } -->
                                 </select>
                             </div>
                             <input
