@@ -180,12 +180,13 @@
                                     <span class="text-xl text-green-500"
                                         ><fa-icon [icon]="faHeart"></fa-icon
                                     ></span>
-
-                                    <!-- {
-        wishlist_count !== 0 && <div class='w-[20px] h-[20px] absolute bg-red-500 rounded-full text-white flex justify-center items-center -top-[3px] -right-[5px] '>
-        {wishlist_count}
-        </div>
-    }                   -->
+                                    @if ($wishlistCount() !== 0) {
+                                    <div
+                                        class="w-[20px] h-[20px] absolute bg-red-500 rounded-full text-white flex justify-center items-center -top-[3px] -right-[5px]"
+                                    >
+                                        {{ $wishlistCount() }}
+                                    </div>
+                                    }
                                 </div>
                                 <div
                                     class="relative flex justify-center items-center cursor-pointer w-[35px] h-[35px] rounded-full bg-[#e2e2e2]"
@@ -196,13 +197,13 @@
                                             [icon]="faCartShopping"
                                         ></fa-icon
                                     ></span>
-                                    <!-- {
-            card_product_count !== 0 && <div class='w-[20px] h-[20px] absolute bg-red-500 rounded-full text-white flex justify-center items-center -top-[3px] -right-[5px] '>
-                {
-                    card_product_count
-                }
-            </div> 
-        }  -->
+                                    @if ($cardProductCount() !== 0) {
+                                    <div
+                                        class="w-[20px] h-[20px] absolute bg-red-500 rounded-full text-white flex justify-center items-center -top-[3px] -right-[5px]"
+                                    >
+                                        {{ $cardProductCount() }}
+                                    </div>
+                                    }
                                 </div>
                             </div>
                         </div>

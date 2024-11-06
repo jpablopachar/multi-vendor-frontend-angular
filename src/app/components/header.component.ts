@@ -14,6 +14,11 @@ import {
 import { Router, RouterLink } from '@angular/router'
 import { Category, UserInfo } from '@app/models'
 import { selectUserInfo } from '@app/store/auth'
+import {
+  cardActions,
+  selectCardProductCount,
+  selectWishlistCount,
+} from '@app/store/card'
 import { selectCategories } from '@app/store/home'
 import {
   FontAwesomeModule,
@@ -53,6 +58,11 @@ export class HeaderComponent implements OnInit {
     this._store.selectSignal(selectCategories);
   public $userInfo: Signal<UserInfo | null> =
     this._store.selectSignal(selectUserInfo);
+  public $cardProductCount: Signal<number> = this._store.selectSignal(
+    selectCardProductCount
+  );
+  public $wishlistCount: Signal<number> =
+    this._store.selectSignal(selectWishlistCount);
 
   public $showSidebar: WritableSignal<boolean> = signal(true);
   public $showCategory: WritableSignal<boolean> = signal(true);
@@ -75,14 +85,24 @@ export class HeaderComponent implements OnInit {
   public faChevronDown: IconDefinition = faChevronDown;
 
   constructor() {
-    effect((): void => {
-      const userInfo: UserInfo | null = this.$userInfo();
+    effect(
+      (): void => {
+        const userInfo: UserInfo | null = this.$userInfo();
 
-      if (userInfo) {
-        // GetCardProducts
-        // GetWishlistProducts
-      }
-    });
+        if (userInfo) {
+          if (userInfo !== null) {
+            this._store.dispatch(
+              cardActions.getCardProducts({ userId: userInfo.id })
+            );
+
+            this._store.dispatch(
+              cardActions.getWishlistProducts({ userId: userInfo.id })
+            );
+          }
+        }
+      },
+      { allowSignalWrites: true }
+    );
   }
 
   public ngOnInit(): void {

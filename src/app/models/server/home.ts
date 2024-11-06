@@ -1,11 +1,11 @@
 export interface GetProductsResponse {
-  products: Product[];
-  latestProduct: Product[];
-  topRatedProduct: Product[];
-  discountProduct: Product[];
+  products: ProductInfo[];
+  latestProduct: ProductInfo[];
+  topRatedProduct: ProductInfo[];
+  discountProduct: ProductInfo[];
 }
 
-export interface Product {
+export interface ProductInfo {
   _id: string;
   sellerId: string;
   name: string;

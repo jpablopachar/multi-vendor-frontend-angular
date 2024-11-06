@@ -20,6 +20,7 @@ export interface AuthResponseError {
 
 export interface UserInfo {
   _id: string;
+  id: string;
   name: string;
   email: string;
   role: string;

@@ -24,6 +24,7 @@ import {
 } from '@fortawesome/angular-fontawesome'
 import { faFacebookF, faGoogle } from '@fortawesome/free-brands-svg-icons'
 import { Store } from '@ngrx/store'
+import { environment } from '@src/environments/environment'
 import { ToastrService } from 'ngx-toastr'
 
 @Component({
@@ -53,6 +54,7 @@ export class RegisterComponent {
   public $userInfo: Signal<UserInfo | null> =
     this._store.selectSignal(selectUserInfo);
 
+  public url: string = environment.clientUrl;
   public faFacebookF: IconDefinition = faFacebookF;
   public faGoogle: IconDefinition = faGoogle;
 

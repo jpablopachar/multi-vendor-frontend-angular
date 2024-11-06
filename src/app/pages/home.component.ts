@@ -1,26 +1,26 @@
 import { CommonModule } from '@angular/common'
 import {
-  ChangeDetectionStrategy,
-  Component,
-  inject,
-  OnInit,
-  Signal,
+    ChangeDetectionStrategy,
+    Component,
+    inject,
+    OnInit,
+    Signal,
 } from '@angular/core'
 import {
-  BannerComponent,
-  CategoryComponent,
-  FeatureProductsComponent,
-  FooterComponent,
-  HeaderComponent,
-  ProductsComponent,
+    BannerComponent,
+    CategoryComponent,
+    FeatureProductsComponent,
+    FooterComponent,
+    HeaderComponent,
+    ProductsComponent,
 } from '@app/components'
-import { Product } from '@app/models'
+import { ProductInfo } from '@app/models'
 import {
-  homeActions,
-  selectDiscountProduct,
-  selectLatestProduct,
-  selectProducts,
-  selectTopRatedProduct,
+    homeActions,
+    selectDiscountProduct,
+    selectLatestProduct,
+    selectProducts,
+    selectTopRatedProduct,
 } from '@app/store/home'
 import { Store } from '@ngrx/store'
 
@@ -69,14 +69,14 @@ import { Store } from '@ngrx/store'
 export class HomeComponent implements OnInit {
   private readonly _store = inject(Store);
 
-  public $products: Signal<Product[]> =
+  public $products: Signal<ProductInfo[]> =
     this._store.selectSignal(selectProducts);
-  public $latestProduct: Signal<Product[]> =
+  public $latestProduct: Signal<ProductInfo[]> =
     this._store.selectSignal(selectLatestProduct);
-  public $topRatedProduct: Signal<Product[]> = this._store.selectSignal(
+  public $topRatedProduct: Signal<ProductInfo[]> = this._store.selectSignal(
     selectTopRatedProduct
   );
-  public $discountProduct: Signal<Product[]> = this._store.selectSignal(
+  public $discountProduct: Signal<ProductInfo[]> = this._store.selectSignal(
     selectDiscountProduct
   );
 

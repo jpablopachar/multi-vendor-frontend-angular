@@ -16,6 +16,8 @@ export const customerRegisterEffect = createEffect(
       switchMap(({ request }) => {
         return authService.customerRegister(request).pipe(
           map((response: AuthResponse) => {
+            localStorage.setItem('customerToken', response.token);
+
             return authActions.customerRegisterSuccess({ response });
           }),
           catchError((errorResponse: HttpErrorResponse) =>
@@ -42,6 +44,8 @@ export const customerLoginEffect = createEffect(
       switchMap(({ request }) => {
         return authService.customerLogin(request).pipe(
           map((response: AuthResponse) => {
+            localStorage.setItem('customerToken', response.token);
+
             return authActions.customerLoginSuccess({ response });
           }),
           catchError((errorResponse: HttpErrorResponse) =>

@@ -1,19 +1,19 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { Category, Product } from "@app/models"
+import { Category, ProductInfo } from "@app/models";
 
 export interface HomeState {
   categories: Category[];
-  products: Product[];
+  products: ProductInfo[];
   totalProduct: number;
   parPage: number;
-  latestProduct: Product[];
-  topRatedProduct: Product[];
-  discountProduct: Product[];
+  latestProduct: ProductInfo[];
+  topRatedProduct: ProductInfo[];
+  discountProduct: ProductInfo[];
   priceRange: { low: number, high: number };
-  product: Product | null;
-  relatedProducts: Product[];
-  moreProducts: Product[];
+  product: ProductInfo | null;
+  relatedProducts: ProductInfo[];
+  moreProducts: ProductInfo[];
   errorMessage: string;
   successMessage: string;
   totalReview: number;

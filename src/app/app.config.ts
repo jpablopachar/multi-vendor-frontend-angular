@@ -12,6 +12,7 @@ import { provideStoreDevtools } from '@ngrx/store-devtools'
 import { provideToastr } from 'ngx-toastr'
 import { routes } from './app.routes'
 import { AuthEffects, authFeatureKey, authReducer } from './store/auth'
+import { CardEffects, cardFeatureKey, cardReducer } from './store/card'
 import { HomeEffects, homeFeatureKey, homeReducer } from './store/home'
 
 export const appConfig: ApplicationConfig = {
@@ -26,9 +27,10 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(),
     provideStore({
       [authFeatureKey]: authReducer,
+      [cardFeatureKey]: cardReducer,
       [homeFeatureKey]: homeReducer,
     }),
-    provideEffects(AuthEffects, HomeEffects),
+    provideEffects(AuthEffects, CardEffects, HomeEffects),
     provideStoreDevtools({
       maxAge: 25,
       logOnly: !isDevMode(),
