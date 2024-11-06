@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router'
-import { protectUserGuard } from './guards/protect-user.guard'
+import { protectUserGuard } from './guards'
 import { RoutesEnum } from './routes.enum'
 
 const COMPONENTS = {
@@ -79,7 +79,7 @@ export const routes: Routes = [
     loadComponent: COMPONENTS.ConfirmOrderComponent,
   },
   {
-    path: `${RoutesEnum.DASHBOARD}`,
+    path: RoutesEnum.DASHBOARD,
     loadChildren: () =>
       import('./router/dashboard.routes').then((r) => r.DashboardRoutes),
     canActivate: [protectUserGuard],

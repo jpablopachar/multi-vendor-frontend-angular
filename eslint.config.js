@@ -39,6 +39,7 @@ module.exports = tseslint.config(
         },
       ],
       '@ngrx/with-state-no-arrays-at-root-level': 'warn',
+      "@ngrx/use-consistent-global-store-name": "off",
     },
   },
   {
