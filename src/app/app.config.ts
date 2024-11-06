@@ -11,6 +11,7 @@ import { provideStore } from '@ngrx/store'
 import { provideStoreDevtools } from '@ngrx/store-devtools'
 import { provideToastr } from 'ngx-toastr'
 import { routes } from './app.routes'
+import { authFeatureKey, authReducer } from './store/auth'
 import { HomeEffects, homeFeatureKey, homeReducer } from './store/home'
 
 export const appConfig: ApplicationConfig = {
@@ -24,6 +25,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideHttpClient(),
     provideStore({
+      [authFeatureKey]: authReducer,
       [homeFeatureKey]: homeReducer,
     }),
     provideEffects(HomeEffects),

@@ -55,7 +55,6 @@ import { Store } from '@ngrx/store'
             <div class="overflow-hidden">
               <app-products />
             </div>
-
             <div class="overflow-hidden">
               <app-products />
             </div>
