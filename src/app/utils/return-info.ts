@@ -1,10 +1,10 @@
+import { UserInfo } from '@app/models'
 import { jwtDecode } from 'jwt-decode'
 
 export const returnInfo = (token: string | null) => {
-  if (!token) return ''
+  if (!token) return null
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const decodeToken = jwtDecode(token) as any
+  const decodeToken = jwtDecode(token) as UserInfo
   
   return decodeToken
 }

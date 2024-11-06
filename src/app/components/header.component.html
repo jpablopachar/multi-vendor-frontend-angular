@@ -1,1 +1,462 @@
-<p>header works!</p>,
+<div class="w-full bg-white">
+    <div class="header-top bg-[#caddff] md-lg:hidden">
+        <div class="w-[85%] lg:w-[90%] mx-auto">
+            <div
+                class="flex w-full justify-between items-center h-[50px] text-slate-500"
+            >
+                <ul
+                    class="flex justify-start items-center gap-8 font-semibold text-black"
+                >
+                    <li
+                        class="flex relative justify-center items-center gap-2 text-sm after:absolute after:h-[18px] after:w-[1px] after:bg-[#afafaf] after:-right-[16px]"
+                    >
+                        <fa-icon [icon]="faUser"></fa-icon>
+                        <span>support&#64;gmail.com</span>
+                    </li>
+                    <li
+                        class="flex relative justify-center items-center gap-2 text-sm"
+                    >
+                        <fa-icon [icon]="faPhoneAlt"></fa-icon>
+                        <span>+(123) 3243 343</span>
+                    </li>
+                </ul>
+                <div>
+                    <div class="flex justify-center items-center gap-10">
+                        <div
+                            class="flex justify-center items-center gap-4 text-black"
+                        >
+                            <a href="#"
+                                ><fa-icon [icon]="faFacebookF"></fa-icon
+                            ></a>
+                            <a href="#"
+                                ><fa-icon [icon]="faTwitter"></fa-icon
+                            ></a>
+                            <a href="#"
+                                ><fa-icon [icon]="faLinkedin"></fa-icon
+                            ></a>
+                            <a href="#"
+                                ><fa-icon [icon]="faGithub"></fa-icon
+                            ></a>
+                        </div>
+                        <div
+                            class="flex group cursor-pointer text-slate-800 text-sm justify-center items-center gap-1 relative after:h-[18px] after:w-[1px] after:bg-[#afafaf] after:-right-[16px] after:absolute before:absolute before:h-[18px] before:bg-[#afafaf] before:w-[1px] before:-left-[20px]"
+                        >
+                            <img src="images/language.png" alt="" />
+                            <fa-icon [icon]="faUser"></fa-icon>
+                            <ul
+                                class="absolute invisible transition-all top-12 rounded-sm duration-200 text-white p-2 w-[100px] flex flex-col gap-3 group-hover:visible group-hover:top-6 group-hover:bg-black z-10"
+                            >
+                                <li>Hindi</li>
+                                <li>English</li>
+                            </ul>
+                        </div>
+                        @if ($userInfo()) {
+                        <a
+                            routerLink="/dashboard"
+                            class="flex cursor-pointer justify-center items-center gap-2 text-sm text-black"
+                        >
+                            <fa-icon [icon]="faUser"></fa-icon>
+                            <span>{{ $userInfo()?.name }}</span>
+                        </a>
+                        } @else {
+                        <a
+                            routerLink="/login"
+                            class="flex cursor-pointer justify-center items-center gap-2 text-sm text-black"
+                        >
+                            <fa-icon [icon]="faLock"></fa-icon>
+                            <span>Login </span>
+                        </a>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="w-white">
+        <div class="w-[85%] lg:w-[90%] mx-auto">
+            <div
+                class="h-[80px] md-lg:h-[100px] flex justify-between items-center flex-wrap"
+            >
+                <div class="md-lg:w-full w-3/12 md-lg:pt-4">
+                    <div class="flex justify-between items-center">
+                        <a routerLink="/">
+                            <img src="images/logo.png" alt="" />
+                        </a>
+                        <div
+                            class="justify-center items-center w-[30px] h-[30px] bg-white text-slate-600 border border-slate-600 rounded-sm cursor-pointer lg:hidden md-lg:flex xl:hidden hidden"
+                            (click)="$showSidebar.set(false)"
+                        >
+                            <fa-icon [icon]="faList"></fa-icon>
+                        </div>
+                    </div>
+                </div>
+                <div class="md:lg:w-full w-9/12">
+                    <div
+                        class="flex justify-between md-lg:justify-center items-center flex-wrap pl-8"
+                    >
+                        <ul
+                            class="flex justify-start items-start gap-8 text-sm font-bold uppercase md-lg:hidden"
+                        >
+                            <li>
+                                <a
+                                    routerLink="/"
+                                    class="p-2 block"
+                                    [ngClass]="{
+                                        'text-[#059473]': pathname === '/',
+                                        'text-slate-600': pathname !== '/'
+                                    }"
+                                >
+                                    Home
+                                </a>
+                            </li>
+                            <li>
+                                <a
+                                    routerLink="/shops"
+                                    class="p-2 block"
+                                    [ngClass]="{
+                                        'text-[#059473]': pathname === '/shops',
+                                        'text-slate-600': pathname !== '/shops'
+                                    }"
+                                >
+                                    Shop
+                                </a>
+                            </li>
+                            <li>
+                                <a
+                                    routerLink="/blog"
+                                    class="p-2 block"
+                                    [ngClass]="{
+                                        'text-[#059473]': pathname === '/blog',
+                                        'text-slate-600': pathname !== '/blog'
+                                    }"
+                                >
+                                    Blog
+                                </a>
+                            </li>
+                            <li>
+                                <a
+                                    routerLink="/about"
+                                    class="p-2 block"
+                                    [ngClass]="{
+                                        'text-[#059473]': pathname === '/about',
+                                        'text-slate-600': pathname !== '/about'
+                                    }"
+                                >
+                                    About Us
+                                </a>
+                            </li>
+                            <li>
+                                <a
+                                    routerLink="/contact"
+                                    class="p-2 block"
+                                    [ngClass]="{
+                                        'text-[#059473]':
+                                            pathname === '/contact',
+                                        'text-slate-600':
+                                            pathname !== '/contact'
+                                    }"
+                                >
+                                    Contact Us
+                                </a>
+                            </li>
+                        </ul>
+                        <div
+                            class="flex md-lg:hidden justify-center items-center gap-5"
+                        >
+                            <div class="flex justify-center gap-5">
+                                <div
+                                    class="relative flex justify-center items-center cursor-pointer w-[35px] h-[35px] rounded-full bg-[#e2e2e2]"
+                                    (click)="
+                                        navigate(
+                                            $userInfo(),
+                                            '/dashboard/my-wishlist',
+                                            '/login'
+                                        )
+                                    "
+                                >
+                                    <span class="text-xl text-green-500"
+                                        ><fa-icon [icon]="faHeart"></fa-icon
+                                    ></span>
+
+                                    <!-- {
+        wishlist_count !== 0 && <div class='w-[20px] h-[20px] absolute bg-red-500 rounded-full text-white flex justify-center items-center -top-[3px] -right-[5px] '>
+        {wishlist_count}
+        </div>
+    }                   -->
+                                </div>
+
+                                <div
+                                    class="relative flex justify-center items-center cursor-pointer w-[35px] h-[35px] rounded-full bg-[#e2e2e2]"
+                                    (click)="redirectCardPage()"
+                                >
+                                    <span class="text-xl text-green-500"
+                                        ><fa-icon
+                                            [icon]="faCartShopping"
+                                        ></fa-icon
+                                    ></span>
+
+                                    <!-- {
+            card_product_count !== 0 && <div class='w-[20px] h-[20px] absolute bg-red-500 rounded-full text-white flex justify-center items-center -top-[3px] -right-[5px] '>
+                {
+                    card_product_count
+                }
+            </div> 
+        }  -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="hidden md-lg:block">
+        <div
+            class="fixed duration-200 transition-all hidden md-lg:block w-screen h-screen bg-[rgba(0,0,0,0.5)] top-0 left-0 z-20"
+            [ngClass]="$showSidebar() ? 'invisible' : 'visible'"
+            (click)="$showSidebar.set(true)"
+        ></div>
+        <div
+            class="w-[300px] z-[9999] transition-all duration-200 fixed overflow-y-auto bg-white h-screen py-6 px-8"
+            [ngClass]="$showSidebar() ? '-left-[300px]' : 'left-0 top-0'"
+        >
+            <div class="flex justify-start flex-col gap-6">
+                <a routerLink="/"><img src="images/logo.png" alt="" /></a>
+                <div class="flex justify-start items-center gap-10">
+                    <div
+                        class="flex group cursor-pointer text-slate-800 text-sm justify-center items-center gap-1 relative after:h-[18px] after:w-[1px] after:bg-[#afafaf] after:-right-[16px] after:absolute"
+                    >
+                        <img src="images/language.png" alt="" />
+                        <fa-icon [icon]="faUser"></fa-icon>
+                        <ul
+                            class="absolute invisible transition-all top-12 rounded-sm duration-200 text-white p-2 w-[100px] flex flex-col gap-3 group-hover:visible group-hover:top-6 group-hover:bg-black z-10"
+                        >
+                            <li>Hindi</li>
+                            <li>English</li>
+                        </ul>
+                    </div>
+                    @if ($userInfo()) {
+                    <a
+                        routerLink="/dashboard"
+                        class="flex cursor-pointer justify-center items-center gap-2 text-sm text-black"
+                    >
+                        <fa-icon [icon]="faUser"></fa-icon>
+                        <span>{{ $userInfo()?.name }}</span>
+                    </a>
+                    } @else {
+                    <a
+                        routerLink="/login"
+                        class="flex cursor-pointer justify-center items-center gap-2 text-sm text-black"
+                    >
+                        <fa-icon [icon]="faLock"></fa-icon>
+                        <span>Login </span>
+                    </a>
+                    }
+                </div>
+                <ul
+                    class="flex flex-col justify-start items-start text-sm font-bold uppercase"
+                >
+                    <li>
+                        <a
+                            routerLink="/"
+                            class="py-2 block"
+                            [ngClass]="{
+                                'text-[#059473]': pathname === '/',
+                                'text-slate-600': pathname !== '/'
+                            }"
+                        >
+                            Home
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            routerLink="/shops"
+                            class="py-2 block"
+                            [ngClass]="{
+                                'text-[#059473]': pathname === '/shops',
+                                'text-slate-600': pathname !== '/shops'
+                            }"
+                        >
+                            Shop
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            routerLink="/blog"
+                            class="py-2 block"
+                            [ngClass]="{
+                                'text-[#059473]': pathname === '/blog',
+                                'text-slate-600': pathname !== '/blog'
+                            }"
+                        >
+                            Blog
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            routerLink="/about"
+                            class="py-2 block"
+                            [ngClass]="{
+                                'text-[#059473]': pathname === '/about',
+                                'text-slate-600': pathname !== '/about'
+                            }"
+                        >
+                            About Us
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            routerLink="/contact"
+                            class="py-2 block"
+                            [ngClass]="{
+                                'text-[#059473]': pathname === '/contact',
+                                'text-slate-600': pathname !== '/contact'
+                            }"
+                        >
+                            Contact Us
+                        </a>
+                    </li>
+                </ul>
+                <div class="flex justify-start items-center gap-4 text-black">
+                    <a href="#"><fa-icon [icon]="faFacebookF"></fa-icon></a>
+                    <a href="#"><fa-icon [icon]="faTwitter"></fa-icon></a>
+                    <a href="#"><fa-icon [icon]="faLinkedin"></fa-icon></a>
+                    <a href="#"><fa-icon [icon]="faGithub"></fa-icon></a>
+                </div>
+                <div
+                    class="w-full flex justify-end md-lg:justify-start gap-3 items-center"
+                >
+                    <div
+                        class="w-[48px] h-[48px] rounded-full flex bg-[#f5f5f5] justify-center items-center"
+                    >
+                        <!-- <span><FaPhoneAlt /></span> -->
+                    </div>
+                    <div class="flex justify-end flex-col gap-1">
+                        <h2 class="text-sm font-medium text-slate-700">
+                            +134343455
+                        </h2>
+                        <span class="text-xs">Support 24/7</span>
+                    </div>
+                </div>
+                <ul
+                    class="flex flex-col justify-start items-start gap-3 text-[#1c1c1c]"
+                >
+                    <li class="flex justify-start items-center gap-2 text-sm">
+                        <!-- <span><MdEmail /></span> -->
+                        <span>support&#64;gmail.com</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="w-[85%] lg:w-[90%] mx-auto">
+        <div class="flex w-full flex-wrap md-lg:gap-8">
+            <div class="w-3/12 md-lg:w-full">
+                <div class="bg-white relative">
+                    <div
+                        class="h-[50px] bg-[#059473] text-white flex justify-center md-lg:justify-between md-lg:px-6 items-center gap-3 font-bold text-md cursor-pointer"
+                        (click)="$showCategory.set(!$showCategory())"
+                    >
+                        <div class="flex justify-center items-center gap-3">
+                            <fa-icon [icon]="faList"></fa-icon>
+                            <span>All Category </span>
+                        </div>
+                        <!-- <span class='pt-1'><IoIosArrowDown /></span> -->
+                    </div>
+
+                    <div
+                        class="overflow-hidden transition-all md-lg:relative duration-500 absolute z-[99999] bg-[#dbf3ed] w-full border-x"
+                        [ngClass]="$showCategory() ? 'h-0' : 'h-[400px]'"
+                    >
+                        <ul class="py-2 text-slate-600 font-medium">
+                            @for (category of $categories(); track category._id;
+                            let idx = $index) {
+                            <li
+                                class="flex justify-start items-center gap-2 px-[24px] py-[6px]"
+                            >
+                                <img
+                                    [src]="category.image"
+                                    class="w-[30px] h-[30px] rounded-full overflow-hidden"
+                                    alt=""
+                                />
+                                <a
+                                    [routerLink]="['/products']"
+                                    [queryParams]="{ category: category.name }"
+                                    class="text-sm block"
+                                    >{{ category.name }}</a
+                                >
+                            </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="w-9/12 pl-8 md-lg:pl-0 md-lg:w-full">
+                <div
+                    class="flex flex-wrap w-full justify-between items-center md-lg:gap-6"
+                >
+                    <div class="w-8/12 md-lg:w-full">
+                        <div
+                            class="flex border h-[50px] items-center relative gap-6"
+                        >
+                            <div
+                                class="relative after:absolute after:h-[25px] after:w-[1px] after:bg-[#afafaf] after:-right-[15px] md:hidden"
+                            >
+                                <select
+                                    class="w-[150px] text-slate-600 font-semibold bg-transparent px-2 h-full outline-0 border-none"
+                                    name=""
+                                    id=""
+                                    (change)="changeValue('select', $event)"
+                                >
+                                    <option value="">Select Category</option>
+                                    @for (category of $categories(); track
+                                    category._id; let idx = $index) {
+                                    <option [value]="category.name">
+                                        {{ category.name }}
+                                    </option>
+                                    }
+                                    <!-- {
+                        categorys.map((c, i) => <option key={i} value={c.name}> {c.name} </option> )
+                    } -->
+                                </select>
+                            </div>
+                            <input
+                                class="w-full relative bg-transparent text-slate-500 outline-0 px-3 h-full"
+                                type="text"
+                                name=""
+                                id=""
+                                placeholder="What do you need"
+                                (change)="changeValue('input', $event)"
+                            />
+                            <button
+                                class="bg-[#059473] right-0 absolute px-8 h-full font-semibold uppercase text-white"
+                                (click)="search()"
+                            >
+                                Search
+                            </button>
+                        </div>
+                    </div>
+                    <div
+                        class="w-4/12 block md-lg:hidden pl-2 md-lg:w-full md-lg:pl-0"
+                    >
+                        <div
+                            class="w-full flex justify-end md-lg:justify-start gap-3 items-center"
+                        >
+                            <div
+                                class="w-[48px] h-[48px] rounded-full flex bg-[#f5f5f5] justify-center items-center"
+                            >
+                                <fa-icon [icon]="faPhoneAlt"></fa-icon>
+                            </div>
+                            <div class="flex justify-end flex-col gap-1">
+                                <h2 class="text-md font-medium text-slate-700">
+                                    +1343-43233455
+                                </h2>
+                                <span class="text-sm">Support 24/7</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
