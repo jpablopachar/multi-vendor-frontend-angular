@@ -1,1 +1,166 @@
-<p>footer works!</p>,
+<footer class="bg-[#f3f6fa]">
+    <div
+        class="w-[85%] flex flex-wrap mx-auto border-b py-16 md-lg:pb-10 sm:pb-6"
+    >
+        <div class="w-3/12 lg:w-4/12 sm:w-full">
+            <div class="flex flex-col gap-3">
+                <img
+                    class="w-[190px] h-[70px]"
+                    src="images/logo.png"
+                    alt="logo"
+                />
+                <ul class="flex flex-col gap-2 text-slate-600">
+                    <li>
+                        Address : 2504 Ivins Avenue, Egg Harbor Township, NJ
+                        08234,
+                    </li>
+                    <li>Phone : 4343434344</li>
+                    <li>Email : support&#64;easylearingbd.com</li>
+                </ul>
+            </div>
+        </div>
+        <div class="w-5/12 lg:w-8/12 sm:w-full">
+            <div class="flex justify-center sm:justify-start sm:mt-6 w-full">
+                <div>
+                    <h2 class="font-bold text-lg mb-2">Usefull Links</h2>
+                    <div class="flex justify-between gap-[80px] lg:gap-[40px]">
+                        <ul
+                            class="flex flex-col gap-2 text-slate-600 text-sm font-semibold"
+                        >
+                            <li>
+                                <a>About Us </a>
+                            </li>
+                            <li>
+                                <a>About Our Shop </a>
+                            </li>
+                            <li>
+                                <a>Delivery Information </a>
+                            </li>
+                            <li>
+                                <a>Privacy Policy </a>
+                            </li>
+                            <li>
+                                <a>Blogs </a>
+                            </li>
+                        </ul>
+                        <ul
+                            class="flex flex-col gap-2 text-slate-600 text-sm font-semibold"
+                        >
+                            <li>
+                                <a>Our Service </a>
+                            </li>
+                            <li>
+                                <a>Company Profile</a>
+                            </li>
+                            <li>
+                                <a>Delivery Information </a>
+                            </li>
+                            <li>
+                                <a>Privacy Policy </a>
+                            </li>
+                            <li>
+                                <a>Blogs </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="w-4/12 lg:w-full lg:mt-6">
+            <div class="w-full flex flex-col justify-start gap-5">
+                <h2 class="font-bold text-lg mb-2">Join Our Shop</h2>
+                <span
+                    >Get Email updates about tour latest and shop specials
+                    offers</span
+                >
+                <div class="h-[50px] w-full bg-white border relative">
+                    <input
+                        class="h-full bg-transparent w-full px-3 outline-0"
+                        type="text"
+                        placeholder="Enter Your Email"
+                    />
+                    <button
+                        class="h-full absolute right-0 bg-[#059473] text-white uppercase px-4 font-bold text-sm"
+                    >
+                        Subscribe
+                    </button>
+                </div>
+                <ul class="flex justify-start items-center gap-3">
+                    <li>
+                        <a
+                            class="w-[38px] h-[38px] hover:bg-[#059473] hover:text-white flex justify-center items-center bg-white rounded-full"
+                            href="#"
+                            ><fa-icon [icon]="faFacebookF"></fa-icon
+                        ></a>
+                    </li>
+                    <li>
+                        <a
+                            class="w-[38px] h-[38px] hover:bg-[#059473] hover:text-white flex justify-center items-center bg-white rounded-full"
+                            href="#"
+                            ><fa-icon [icon]="faTwitter"></fa-icon
+                        ></a>
+                    </li>
+                    <li>
+                        <a
+                            class="w-[38px] h-[38px] hover:bg-[#059473] hover:text-white flex justify-center items-center bg-white rounded-full"
+                            href="#"
+                            ><fa-icon [icon]="faLinkedin"></fa-icon
+                        ></a>
+                    </li>
+                    <li>
+                        <a
+                            class="w-[38px] h-[38px] hover:bg-[#059473] hover:text-white flex justify-center items-center bg-white rounded-full"
+                            href="#"
+                            ><fa-icon [icon]="faGithub"></fa-icon
+                        ></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div
+        class="w-[90%] flex flex-wrap justify-center items-center text-slate-600 mx-auto py-5 text-center"
+    >
+        <span>Copyright &#64; 2024 All Rights Reserved </span>
+    </div>
+    <div
+        class="hidden fixed md-lg:block w-[50px] h-[110px] bottom-3 right-2 bg-white rounded-full p-2"
+    >
+        <div
+            class="w-full h-full flex gap-3 flex-col justify-center items-center"
+        >
+            <div
+                class="relative flex justify-center items-center cursor-pointer w-[35px] h-[35px] rounded-full bg-[#e2e2e2]"
+                (click)="navigate($userInfo() ? '/card' : '/login')"
+            >
+                <span class="text-xl text-green-500"
+                    ><fa-icon [icon]="faCartShopping"></fa-icon
+                ></span>
+                @if ($cardProductCount() !== 0) {
+                <div
+                    class="w-[20px] h-[20px] absolute bg-red-500 rounded-full text-white flex justify-center items-center -top-[3px] -right-[5px]"
+                >
+                    {{ $cardProductCount() }}
+                </div>
+                }
+            </div>
+            <div
+                class="relative flex justify-center items-center cursor-pointer w-[35px] h-[35px] rounded-full bg-[#e2e2e2]"
+                (click)="
+                    navigate($userInfo() ? '/dashboard/my-wishlist' : '/login')
+                "
+            >
+                <span class="text-xl text-green-500"
+                    ><fa-icon [icon]="faHeart"></fa-icon
+                ></span>
+                @if($wishlistCount() !== 0) {
+                <div
+                    class="w-[20px] h-[20px] absolute bg-red-500 rounded-full text-white flex justify-center items-center -top-[3px] -right-[5px]"
+                >
+                    {{ $wishlistCount() }}
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+</footer>
