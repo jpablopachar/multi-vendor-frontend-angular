@@ -21,6 +21,54 @@ const authFeature = createFeature({
         errorMessage: '',
         successMessage: '',
       })
+    ),
+    on(
+      authActions.customerRegister,
+      (state: AuthState): AuthState => ({
+        ...state,
+        loader: true,
+      })
+    ),
+    on(
+      authActions.customerRegisterSuccess,
+      (state: AuthState, { response }): AuthState => ({
+        ...state,
+        successMessage: response.message,
+        userInfo: returnInfo(response.token),
+        loader: false,
+      })
+    ),
+    on(
+      authActions.customerRegisterError,
+      (state: AuthState, { response }): AuthState => ({
+        ...state,
+        errorMessage: response.error,
+        loader: false,
+      })
+    ),
+    on(
+      authActions.customerLogin,
+      (state: AuthState): AuthState => ({
+        ...state,
+        loader: true,
+      })
+    ),
+    on(
+      authActions.customerLoginSuccess,
+      (state: AuthState, { response }): AuthState => ({
+        ...state,
+        successMessage: response.message,
+        userInfo: returnInfo(response.token),
+        loader: false,
+      })
+    ),
+    on(
+      authActions.customerLoginError,
+      (state: AuthState, { response }): AuthState => ({
+        ...state,
+        errorMessage: response.error,
+        loader: false,
+      })
     )
   ),
 });

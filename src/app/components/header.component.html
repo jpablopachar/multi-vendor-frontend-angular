@@ -101,10 +101,11 @@
                                 <a
                                     routerLink="/"
                                     class="p-2 block"
-                                    [ngClass]="{
-                                        'text-[#059473]': pathname === '/',
-                                        'text-slate-600': pathname !== '/'
-                                    }"
+                                    [ngClass]="
+                                        pathname === '/'
+                                            ? 'text-[#059473]'
+                                            : 'text-slate-600'
+                                    "
                                 >
                                     Home
                                 </a>
@@ -113,10 +114,11 @@
                                 <a
                                     routerLink="/shops"
                                     class="p-2 block"
-                                    [ngClass]="{
-                                        'text-[#059473]': pathname === '/shops',
-                                        'text-slate-600': pathname !== '/shops'
-                                    }"
+                                    [ngClass]="
+                                        pathname === '/shops'
+                                            ? 'text-[#059473]'
+                                            : 'text-slate-600'
+                                    "
                                 >
                                     Shop
                                 </a>
@@ -125,10 +127,11 @@
                                 <a
                                     routerLink="/blog"
                                     class="p-2 block"
-                                    [ngClass]="{
-                                        'text-[#059473]': pathname === '/blog',
-                                        'text-slate-600': pathname !== '/blog'
-                                    }"
+                                    [ngClass]="
+                                        pathname === '/blog'
+                                            ? 'text-[#059473]'
+                                            : 'text-slate-600'
+                                    "
                                 >
                                     Blog
                                 </a>
@@ -137,10 +140,11 @@
                                 <a
                                     routerLink="/about"
                                     class="p-2 block"
-                                    [ngClass]="{
-                                        'text-[#059473]': pathname === '/about',
-                                        'text-slate-600': pathname !== '/about'
-                                    }"
+                                    [ngClass]="
+                                        pathname === '/about'
+                                            ? 'text-[#059473]'
+                                            : 'text-slate-600'
+                                    "
                                 >
                                     About Us
                                 </a>
@@ -149,12 +153,11 @@
                                 <a
                                     routerLink="/contact"
                                     class="p-2 block"
-                                    [ngClass]="{
-                                        'text-[#059473]':
-                                            pathname === '/contact',
-                                        'text-slate-600':
-                                            pathname !== '/contact'
-                                    }"
+                                    [ngClass]="
+                                        pathname === '/contact'
+                                            ? 'text-[#059473]'
+                                            : 'text-slate-600'
+                                    "
                                 >
                                     Contact Us
                                 </a>
@@ -258,10 +261,11 @@
                         <a
                             routerLink="/"
                             class="py-2 block"
-                            [ngClass]="{
-                                'text-[#059473]': pathname === '/',
-                                'text-slate-600': pathname !== '/'
-                            }"
+                            [ngClass]="
+                                pathname === '/'
+                                    ? 'text-[#059473]'
+                                    : 'text-slate-600'
+                            "
                         >
                             Home
                         </a>
@@ -270,10 +274,11 @@
                         <a
                             routerLink="/shops"
                             class="py-2 block"
-                            [ngClass]="{
-                                'text-[#059473]': pathname === '/shops',
-                                'text-slate-600': pathname !== '/shops'
-                            }"
+                            [ngClass]="
+                                pathname === '/shops'
+                                    ? 'text-[#059473]'
+                                    : 'text-slate-600'
+                            "
                         >
                             Shop
                         </a>
@@ -282,10 +287,11 @@
                         <a
                             routerLink="/blog"
                             class="py-2 block"
-                            [ngClass]="{
-                                'text-[#059473]': pathname === '/blog',
-                                'text-slate-600': pathname !== '/blog'
-                            }"
+                            [ngClass]="
+                                pathname === '/blog'
+                                    ? 'text-[#059473]'
+                                    : 'text-slate-600'
+                            "
                         >
                             Blog
                         </a>
@@ -294,10 +300,11 @@
                         <a
                             routerLink="/about"
                             class="py-2 block"
-                            [ngClass]="{
-                                'text-[#059473]': pathname === '/about',
-                                'text-slate-600': pathname !== '/about'
-                            }"
+                            [ngClass]="
+                                pathname === '/about'
+                                    ? 'text-[#059473]'
+                                    : 'text-slate-600'
+                            "
                         >
                             About Us
                         </a>
@@ -306,10 +313,11 @@
                         <a
                             routerLink="/contact"
                             class="py-2 block"
-                            [ngClass]="{
-                                'text-[#059473]': pathname === '/contact',
-                                'text-slate-600': pathname !== '/contact'
-                            }"
+                            [ngClass]="
+                                pathname === '/contact'
+                                    ? 'text-[#059473]'
+                                    : 'text-slate-600'
+                            "
                         >
                             Contact Us
                         </a>
@@ -359,7 +367,9 @@
                             <fa-icon [icon]="faList"></fa-icon>
                             <span>All Category </span>
                         </div>
-                        <span class='pt-1'><fa-icon [icon]="faChevronDown"></fa-icon></span>
+                        <span class="pt-1"
+                            ><fa-icon [icon]="faChevronDown"></fa-icon
+                        ></span>
                     </div>
                     <div
                         class="overflow-hidden transition-all md-lg:relative duration-500 absolute z-[99999] bg-[#dbf3ed] w-full border-x"
