@@ -1,8 +1,12 @@
 import { HttpClient } from '@angular/common/http'
 import { inject, Injectable } from '@angular/core'
 import {
+  AddProductToCardRequest,
+  AddProductToCardResponse,
+  AddProductToWishlistRequest,
   GetCardProductsResponse,
-  GetWhishlistProductsResponse
+  GetWhishlistProductsResponse,
+  ResponseSuccess,
 } from '@app/models'
 import { environment } from '@src/environments/environment'
 import { Observable } from 'rxjs'
@@ -15,9 +19,27 @@ export class CardService {
 
   private _url = `${environment.apiUrl}/api/home/product`;
 
+  public addToCard(
+    body: AddProductToCardRequest
+  ): Observable<AddProductToCardResponse> {
+    return this._http.post<AddProductToCardResponse>(
+      `${this._url}/add-to-card`,
+      body
+    );
+  }
+
   public getCardProducts(userId: string): Observable<GetCardProductsResponse> {
     return this._http.get<GetCardProductsResponse>(
       `${this._url}/get-card-products/${userId}`
+    );
+  }
+
+  public addToWishlist(
+    body: AddProductToWishlistRequest
+  ): Observable<ResponseSuccess> {
+    return this._http.post<ResponseSuccess>(
+      `${this._url}/add-to-wishlist`,
+      body
     );
   }
 

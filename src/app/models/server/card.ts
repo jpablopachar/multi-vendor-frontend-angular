@@ -28,3 +28,34 @@ export interface Product {
   quantity: number;
   productInfo: ProductInfo;
 }
+
+export interface AddProductToCardRequest {
+  userId: string;
+  quantity: number;
+  productId: string;
+}
+
+export interface AddProductToCardResponse {
+  message: string;
+  product: ProductInCard;
+}
+
+export interface ProductInCard {
+  userId: string;
+  productId: string;
+  quantity: number;
+  _id: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface AddProductToWishlistRequest {
+  userId: string;
+  productId: string;
+  name: string;
+  price: number;
+  image: string;
+  discount: number;
+  rating: number;
+  slug: string;
+}

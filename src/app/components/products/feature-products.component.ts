@@ -4,13 +4,17 @@ import {
   Component,
   InputSignal,
   Signal,
-  ViewEncapsulation,
   effect,
   inject,
-  input,
+  input
 } from '@angular/core'
 import { Router, RouterLink } from '@angular/router'
-import { ProductInfo, UserInfo } from '@app/models'
+import {
+  AddProductToCardRequest,
+  AddProductToWishlistRequest,
+  ProductInfo,
+  UserInfo,
+} from '@app/models'
 import { selectUserInfo } from '@app/store/auth'
 import {
   cardActions,
@@ -33,7 +37,6 @@ import { RatingComponent } from '../rating.component'
   imports: [CommonModule, FontAwesomeModule, RouterLink, RatingComponent],
   templateUrl: './feature-products.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
 })
 export class FeatureProductsComponent {
   private readonly _store = inject(Store);
@@ -59,7 +62,7 @@ export class FeatureProductsComponent {
       (): void => {
         const successMessage: string = this.$successMessage();
 
-        if (successMessage) {
+        if (this.$successMessage()) {
           this._toastr.success(successMessage);
 
           this._store.dispatch(cardActions.messageClear());
@@ -79,13 +82,32 @@ export class FeatureProductsComponent {
 
   public addCard(id: string): void {
     if (this.$userInfo()) {
-      console.log('Add product to card: ', id);
+      const request: AddProductToCardRequest = {
+        userId: this.$userInfo()!.id,
+        quantity: 1,
+        productId: id,
+      };
+
+      this._store.dispatch(cardActions.addProductToCard({ request }));
     } else {
       this._router.navigate(['/login']);
     }
   }
 
   public addWishlist(product: ProductInfo): void {
-    console.log('Add product to wishlist: ', product);
+    const { _id, name, price, images, discount, rating, slug } = product;
+
+    const request: AddProductToWishlistRequest = {
+      userId: this.$userInfo()!.id,
+      productId: _id,
+      name,
+      price,
+      image: images[0],
+      discount,
+      rating,
+      slug,
+    };
+
+    this._store.dispatch(cardActions.addProductToWishlist({ request }));
   }
 }

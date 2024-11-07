@@ -28,6 +28,27 @@ const cardFeature = createFeature({
       })
     ),
     on(
+      cardActions.addProductToCard,
+      (state: CardState): CardState => ({
+        ...state,
+      })
+    ),
+    on(
+      cardActions.addProductToCardSuccess,
+      (state: CardState, { response }): CardState => ({
+        ...state,
+        successMessage: response.message,
+        cardProductCount: state.cardProductCount + 1,
+      })
+    ),
+    on(
+      cardActions.addProductToCardError,
+      (state: CardState, { response }): CardState => ({
+        ...state,
+        errorMessage: response.error,
+      })
+    ),
+    on(
       cardActions.getCardProducts,
       (state: CardState): CardState => ({
         ...state,
@@ -43,6 +64,27 @@ const cardFeature = createFeature({
         shippingFee: response.shippingFee,
         outOfStockProducts: response.outOfStockProducts,
         buyProductItem: response.buyProductItem,
+      })
+    ),
+    on(
+      cardActions.addProductToWishlist,
+      (state: CardState): CardState => ({
+        ...state,
+      })
+    ),
+    on(
+      cardActions.addProductToWishlistSuccess,
+      (state: CardState, { response }): CardState => ({
+        ...state,
+        successMessage: response.message,
+        wishlistCount: state.wishlistCount > 0 ? state.wishlistCount + 1 : 1,
+      })
+    ),
+    on(
+      cardActions.addProductToWishlistError,
+      (state: CardState, { response }): CardState => ({
+        ...state,
+        errorMessage: response.error,
       })
     ),
     on(
