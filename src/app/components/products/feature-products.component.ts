@@ -4,6 +4,7 @@ import {
   Component,
   InputSignal,
   Signal,
+  ViewEncapsulation,
   effect,
   inject,
   input,
@@ -32,6 +33,7 @@ import { RatingComponent } from '../rating.component'
   imports: [CommonModule, FontAwesomeModule, RouterLink, RatingComponent],
   templateUrl: './feature-products.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
 })
 export class FeatureProductsComponent {
   private readonly _store = inject(Store);
@@ -77,13 +79,13 @@ export class FeatureProductsComponent {
 
   public addCard(id: string): void {
     if (this.$userInfo()) {
-      // Add product to card
+      console.log('Add product to card: ', id);
     } else {
       this._router.navigate(['/login']);
     }
   }
 
   public addWishlist(product: ProductInfo): void {
-    // Add product to wishlist
+    console.log('Add product to wishlist: ', product);
   }
 }

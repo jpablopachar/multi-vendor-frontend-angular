@@ -8,20 +8,19 @@
         </div>
     </div>
     <div
-        class="w-full grid grid-cols-4 md-lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-6"
+        class="w-full grid grid-cols-4 lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 gap-6"
     >
         @for (product of $products(); track product._id; let idx = $index) {
         <div
             class="border group transition-all duration-500 hover:shadow-md hover:-mt-3"
         >
             <div class="relative overflow-hidden">
-                @if (product.discount) {
                 <div
                     class="flex justify-center items-center absolute text-white w-[38px] h-[38px] rounded-full bg-red-500 font-semibold text-xs left-2 top-2"
+                    *ngIf="product.discount"
                 >
                     {{ product.discount }}%
                 </div>
-                } @else { '' }
                 <img
                     class="sm:w-full w-full h-[240px]"
                     [src]="product.images[0]"
@@ -59,7 +58,7 @@
                         product.price | currency
                     }}</span>
                     <div class="flex">
-                        <app-rating [$ratings]="product.rating" />
+                        <app-rating [ratings]="product.rating" />
                     </div>
                 </div>
             </div>

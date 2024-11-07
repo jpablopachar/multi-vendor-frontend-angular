@@ -1,11 +1,13 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { CommonModule } from '@angular/common'
 import {
   ChangeDetectionStrategy,
   Component,
-  InputSignal,
+  Input,
+  OnChanges,
+  SimpleChanges,
   WritableSignal,
-  effect,
-  input,
   signal,
 } from '@angular/core'
 import {
@@ -35,8 +37,8 @@ import { faStar as fasStar } from '@fortawesome/free-solid-svg-icons'
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RatingComponent {
-  readonly $ratings: InputSignal<number> = input.required<number>();
+export class RatingComponent implements OnChanges {
+  @Input({ required: true }) ratings!: number;
 
   public $starTypes: WritableSignal<('full' | 'half' | 'empty')[]> = signal([]);
 
@@ -44,25 +46,23 @@ export class RatingComponent {
   public farStar: IconDefinition = farStar;
   public faStarHalfAlt: IconDefinition = faStarHalfAlt;
 
-  constructor() {
-    effect(
-      (): void => {
-        if (this.$ratings()) {
-          console.log('ratings', this.$ratings());
-          this._calculateStars();
-        }
-      },
-      { allowSignalWrites: true }
-    );
+  public trackByFn(index: number, item: any): string {
+    return item._id;
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['ratings']) {
+      this._calculateStars();
+    }
   }
 
   private _calculateStars(): void {
     this.$starTypes.set([]);
 
     for (let i = 1; i <= 5; i++) {
-      if (this.$ratings() >= i) {
+      if (this.ratings >= i) {
         this.$starTypes.update((starTypes) => [...starTypes, 'full']);
-      } else if (this.$ratings() >= i - 0.5) {
+      } else if (this.ratings >= i - 0.5) {
         this.$starTypes.update((starTypes) => [...starTypes, 'half']);
       } else {
         this.$starTypes.update((starTypes) => [...starTypes, 'empty']);
