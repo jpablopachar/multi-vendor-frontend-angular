@@ -65,6 +65,8 @@ const cardFeature = createFeature({
 export const {
   name: cardFeatureKey,
   reducer: cardReducer,
+  selectSuccessMessage,
+  selectErrorMessage,
   selectCardProductCount,
   selectWishlistCount,
 } = cardFeature;

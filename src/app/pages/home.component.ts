@@ -1,26 +1,26 @@
 import { CommonModule } from '@angular/common'
 import {
-    ChangeDetectionStrategy,
-    Component,
-    inject,
-    OnInit,
-    Signal,
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  OnInit,
+  Signal,
 } from '@angular/core'
 import {
-    BannerComponent,
-    CategoryComponent,
-    FeatureProductsComponent,
-    FooterComponent,
-    HeaderComponent,
-    ProductsComponent,
+  BannerComponent,
+  CategoryComponent,
+  FeatureProductsComponent,
+  FooterComponent,
+  HeaderComponent,
+  ProductsComponent,
 } from '@app/components'
 import { ProductInfo } from '@app/models'
 import {
-    homeActions,
-    selectDiscountProduct,
-    selectLatestProduct,
-    selectProducts,
-    selectTopRatedProduct,
+  homeActions,
+  selectDiscountProduct,
+  selectLatestProduct,
+  selectProducts,
+  selectTopRatedProduct,
 } from '@app/store/home'
 import { Store } from '@ngrx/store'
 
@@ -42,7 +42,7 @@ import { Store } from '@ngrx/store'
       <app-banner />
       <app-category />
       <div class="py-[45px]">
-        <app-feature-products />
+        <app-feature-products [$products]="$products()" />
       </div>
       <div class="py-10">
         <div class="w-[85%] flex flex-wrap mx-auto">
