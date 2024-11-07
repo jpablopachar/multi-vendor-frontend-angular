@@ -6,9 +6,14 @@ import {
   input,
   InputSignal,
   TemplateRef,
+  ViewChild,
 } from '@angular/core'
 import { CarouselConfig } from '@app/models'
-import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o'
+import {
+  CarouselModule,
+  CarouselComponent as OwlCarouselComponent,
+  OwlOptions,
+} from 'ngx-owl-carousel-o'
 
 const DEFAULT_CAROUSEL_OPTIONS: OwlOptions = {
   loop: true,
@@ -33,6 +38,7 @@ const DEFAULT_CAROUSEL_OPTIONS: OwlOptions = {
   standalone: true,
   imports: [CommonModule, CarouselModule],
   template: `
+    @if ($items().length > 0) {
     <owl-carousel-o [options]="carouselOptions">
       @for (item of $items(); track item['_id']; let idx = $index) {
       <ng-template carouselSlide>
@@ -43,10 +49,13 @@ const DEFAULT_CAROUSEL_OPTIONS: OwlOptions = {
       </ng-template>
       }
     </owl-carousel-o>
+    }
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CarouselComponent<T extends CarouselConfig> {
+  @ViewChild(OwlCarouselComponent) private _carousel!: OwlCarouselComponent;
+
   @Input({ required: true }) itemTemplate!: TemplateRef<{ $implicit: T }>;
   @Input() set config(value: Partial<CarouselConfig>) {
     this.carouselOptions = { ...DEFAULT_CAROUSEL_OPTIONS, ...value };
@@ -55,4 +64,12 @@ export class CarouselComponent<T extends CarouselConfig> {
   readonly $items: InputSignal<T[]> = input.required<T[]>();
 
   protected carouselOptions: OwlOptions = DEFAULT_CAROUSEL_OPTIONS;
+
+  public next(): void {
+    this._carousel.next();
+  }
+
+  public prev(): void {
+    this._carousel.prev();
+  }
 }

@@ -1,8 +1,8 @@
 export interface GetProductsResponse {
   products: ProductInfo[];
-  latestProduct: ProductInfo[];
-  topRatedProduct: ProductInfo[];
-  discountProduct: ProductInfo[];
+  latestProduct: ProductInfo[][];
+  topRatedProduct: ProductInfo[][];
+  discountProduct: ProductInfo[][];
 }
 
 export interface ProductInfo {

@@ -1,15 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { Category, ProductInfo } from "@app/models";
+import { Category, ProductInfo } from "@app/models"
 
 export interface HomeState {
   categories: Category[];
   products: ProductInfo[];
   totalProduct: number;
   parPage: number;
-  latestProduct: ProductInfo[];
-  topRatedProduct: ProductInfo[];
-  discountProduct: ProductInfo[];
+  latestProduct: ProductInfo[][];
+  topRatedProduct: ProductInfo[][];
+  discountProduct: ProductInfo[][];
   priceRange: { low: number, high: number };
   product: ProductInfo | null;
   relatedProducts: ProductInfo[];

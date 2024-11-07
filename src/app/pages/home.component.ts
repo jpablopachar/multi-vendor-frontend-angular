@@ -47,16 +47,25 @@ import { Store } from '@ngrx/store'
       <div class="py-10">
         <div class="w-[85%] flex flex-wrap mx-auto">
           <div
-            class="grid w-full grid-cols-3 md-lg:grid-cols-2 md:grid-cols-1 gap-7"
+            class="grid w-full grid-cols-3 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-7"
           >
             <div class="overflow-hidden">
-              <app-products />
+              <app-products
+                [title]="'Latest Product'"
+                [$products]="$latestProduct()"
+              />
             </div>
             <div class="overflow-hidden">
-              <app-products />
+              <app-products
+                [title]="'Top Rated Product'"
+                [$products]="$topRatedProduct()"
+              />
             </div>
             <div class="overflow-hidden">
-              <app-products />
+              <app-products
+                [title]="'Discount Product'"
+                [$products]="$discountProduct()"
+              />
             </div>
           </div>
         </div>
@@ -71,12 +80,12 @@ export class HomeComponent implements OnInit {
 
   public $products: Signal<ProductInfo[]> =
     this._store.selectSignal(selectProducts);
-  public $latestProduct: Signal<ProductInfo[]> =
+  public $latestProduct: Signal<ProductInfo[][]> =
     this._store.selectSignal(selectLatestProduct);
-  public $topRatedProduct: Signal<ProductInfo[]> = this._store.selectSignal(
+  public $topRatedProduct: Signal<ProductInfo[][]> = this._store.selectSignal(
     selectTopRatedProduct
   );
-  public $discountProduct: Signal<ProductInfo[]> = this._store.selectSignal(
+  public $discountProduct: Signal<ProductInfo[][]> = this._store.selectSignal(
     selectDiscountProduct
   );
 
