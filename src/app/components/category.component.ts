@@ -11,6 +11,34 @@ import { selectCategories } from '@app/store/home'
 import { Store } from '@ngrx/store'
 import { CarouselComponent } from './carousel.component'
 
+const CAROUSEL_OPTIONS: CarouselConfig = {
+  loop: true,
+  nav: true,
+  autoplay: true,
+  smartSpeed: 500,
+  responsive: {
+    0: {
+      items: 1,
+    },
+    440: {
+      items: 2,
+    },
+    640: {
+      items: 3,
+    },
+    991: {
+      items: 4,
+    },
+    1024: {
+      items: 6,
+    },
+    3000: {
+      items: 6,
+    },
+  },
+  navText: ['<', '>'],
+};
+
 @Component({
   selector: 'app-category',
   standalone: true,
@@ -56,34 +84,8 @@ import { CarouselComponent } from './carousel.component'
 export class CategoryComponent {
   private readonly _store = inject(Store);
 
-  public $categories: Signal<Category[]> =
+  protected readonly $categories: Signal<Category[]> =
     this._store.selectSignal(selectCategories);
 
-  public carouselConfig: Partial<CarouselConfig> = {
-    loop: true,
-    nav: true,
-    autoplay: true,
-    smartSpeed: 500,
-    responsive: {
-      0: {
-        items: 1,
-      },
-      440: {
-        items: 2,
-      },
-      640: {
-        items: 3,
-      },
-      991: {
-        items: 4,
-      },
-      1024: {
-        items: 6,
-      },
-      3000: {
-        items: 6,
-      },
-    },
-    navText: ['<', '>'],
-  };
+  protected readonly carouselConfig = CAROUSEL_OPTIONS;
 }

@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import { CommonModule } from '@angular/common'
 import {
   ChangeDetectionStrategy,
@@ -12,13 +10,31 @@ import {
 import { CarouselConfig } from '@app/models'
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o'
 
+const DEFAULT_CAROUSEL_OPTIONS: OwlOptions = {
+  loop: true,
+  mouseDrag: false,
+  touchDrag: false,
+  pullDrag: false,
+  dots: false,
+  smartSpeed: 700,
+  navSpeed: 700,
+  navText: ['', ''],
+  responsive: {
+    0: { items: 1 },
+    400: { items: 2 },
+    740: { items: 3 },
+    940: { items: 4 },
+  },
+  nav: true,
+};
+
 @Component({
   selector: 'app-carousel',
   standalone: true,
   imports: [CommonModule, CarouselModule],
   template: `
     <owl-carousel-o [options]="carouselOptions">
-      @for (item of $items(); track item._id; let idx = $index) {
+      @for (item of $items(); track item['_id']; let idx = $index) {
       <ng-template carouselSlide>
         <ng-container
           [ngTemplateOutlet]="itemTemplate"
@@ -30,31 +46,13 @@ import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o'
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CarouselComponent {
-  @Input({ required: true }) itemTemplate!: TemplateRef<any>;
+export class CarouselComponent<T extends CarouselConfig> {
+  @Input({ required: true }) itemTemplate!: TemplateRef<{ $implicit: T }>;
   @Input() set config(value: Partial<CarouselConfig>) {
-    this.carouselOptions = { ...this.defaultOptions, ...value };
+    this.carouselOptions = { ...DEFAULT_CAROUSEL_OPTIONS, ...value };
   }
 
-  $items: InputSignal<any[]> = input.required<any[]>();
+  readonly $items: InputSignal<T[]> = input.required<T[]>();
 
-  private defaultOptions: OwlOptions = {
-    loop: true,
-    mouseDrag: false,
-    touchDrag: false,
-    pullDrag: false,
-    dots: false,
-    smartSpeed: 700,
-    navSpeed: 700,
-    navText: ['', ''],
-    responsive: {
-      0: { items: 1 },
-      400: { items: 2 },
-      740: { items: 3 },
-      940: { items: 4 },
-    },
-    nav: true,
-  };
-
-  carouselOptions: OwlOptions = this.defaultOptions;
+  protected carouselOptions: OwlOptions = DEFAULT_CAROUSEL_OPTIONS;
 }
