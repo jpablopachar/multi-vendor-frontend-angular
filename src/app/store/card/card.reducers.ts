@@ -111,4 +111,9 @@ export const {
   selectErrorMessage,
   selectCardProductCount,
   selectWishlistCount,
+  selectCardProducts,
+  selectPrice,
+  selectBuyProductItem,
+  selectShippingFee,
+  selectOutOfStockProducts,
 } = cardFeature;
