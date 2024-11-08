@@ -24,4 +24,260 @@
             </div>
         </div>
     </section>
+    <section class="bg-[-#eeeeee]">
+        <div class="w-[85%] lg:w-[90%] md:w-[90%] sm:w-[90%] mx-auto py-16">
+            @if ($cardProducts().length > 0 || $outOfStockProducts().length > 0)
+            {
+            <div class="flex flex-wrap">
+                <div class="w-[67%] md-lg:w-full">
+                    <div class="pr-3 md-lg:pr-0">
+                        <div class="flex flex-col gap-3">
+                            <div class="bg-white p-4">
+                                <h2
+                                    class="text-md text-green-500 font-semibold"
+                                >
+                                    Stock Products {{ $cardProducts().length }}
+                                </h2>
+                            </div>
+                            @for (cardProduct of $cardProducts(); track
+                            cardProduct.shopName;) {
+                            <div class="flex bg-white p-4 flex-col gap-2">
+                                <div class="flex justify-start items-center">
+                                    <h2
+                                        class="text-md text-slate-600 font-bold"
+                                    >
+                                        {{ cardProduct.shopName }}
+                                    </h2>
+                                </div>
+                                <ng-container
+                                    *ngFor="
+                                        let product of cardProduct.products;
+                                        trackBy: trackByItems
+                                    "
+                                >
+                                    <div class="w-full flex flex-wrap">
+                                        <div
+                                            class="flex sm:w-full gap-2 w-7/12"
+                                        >
+                                            <div
+                                                class="flex gap-2 justify-start items-center"
+                                            >
+                                                <img
+                                                    class="w-[80px] h-[80px]"
+                                                    [src]="
+                                                        product.productInfo
+                                                            .images[0]
+                                                    "
+                                                    alt=""
+                                                />
+                                                <div
+                                                    class="pr-4 text-slate-600"
+                                                >
+                                                    <h2
+                                                        class="text-md font-semibold"
+                                                    >
+                                                        {{
+                                                            product.productInfo
+                                                                .name
+                                                        }}
+                                                    </h2>
+                                                    <span class="text-sm"
+                                                        >Brand:
+                                                        {{
+                                                            product.productInfo
+                                                                .brand
+                                                        }}</span
+                                                    >
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="flex justify-between w-5/12 sm:w-full sm:mt-3"
+                                        >
+                                            <div class="pl-4 sm:pl-0">
+                                                <h2
+                                                    class="text-lg text-orange-500"
+                                                >
+                                                    {{
+                                                        product.productInfo
+                                                            .price
+                                                            | appDiscount
+                                                                : product
+                                                                      .productInfo
+                                                                      .discount
+                                                            | currency
+                                                    }}
+                                                </h2>
+                                                <p class="line-through">
+                                                    {{
+                                                        product.productInfo
+                                                            .price | currency
+                                                    }}
+                                                </p>
+                                                <p>
+                                                    -{{
+                                                        product.productInfo
+                                                            .discount
+                                                    }}%
+                                                </p>
+                                            </div>
+                                            <div class="flex gap-2 flex-col">
+                                                <div
+                                                    class="flex bg-slate-200 h-[30px] justify-center items-center text-xl"
+                                                >
+                                                    <div
+                                                        class="px-3 cursor-pointer"
+                                                        (click)="
+                                                            dec(
+                                                                product.quantity,
+                                                                product._id
+                                                            )
+                                                        "
+                                                    >
+                                                        -
+                                                    </div>
+                                                    <div class="px-3">
+                                                        {{ product.quantity }}
+                                                    </div>
+                                                    <div
+                                                        class="px-3 cursor-pointer"
+                                                        (click)="
+                                                            inc(
+                                                                product.quantity,
+                                                                product
+                                                                    .productInfo
+                                                                    .stock,
+                                                                product._id
+                                                            )
+                                                        "
+                                                    >
+                                                        +
+                                                    </div>
+                                                </div>
+                                                <button
+                                                    class="px-5 py-[3px] bg-red-500 text-white"
+                                                    (click)="
+                                                        deleteCard(product._id)
+                                                    "
+                                                >
+                                                    Delete
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ng-container>
+                            </div>
+                            }
+                            <!-- @if ($outOfStockProducts().length > 0) {
+                            <div class="flex flex-col gap-3">
+                                <div class="bg-white p-4">
+                                    <h2
+                                        class="text-md text-red-500 font-semibold"
+                                    >
+                                        Out of Stock
+                                        {{ $outOfStockProducts().length }}
+                                    </h2>
+                                </div>
+                                <div class="bg-white p-4">
+                                    @for (product of $outOfStockProducts();
+                                    track product.shopName;) {
+                                    <div class="w-full flex flex-wrap">
+                                        <div
+                                            class="flex sm:w-full gap-2 w-7/12"
+                                        >
+                                            <div
+                                                class="flex gap-2 justify-start items-center"
+                                            >
+                                                <img
+                                                    class="w-[80px] h-[80px]"
+                                                    [src]="
+                                                        product.products[0]
+                                                            .productInfo
+                                                            .images[0]
+                                                    "
+                                                    alt=""
+                                                />
+                                                <div
+                                                    class="pr-4 text-slate-600"
+                                                >
+                                                    <h2
+                                                        class="text-md font-semibold"
+                                                    >
+                                                        {{
+                                                            product.products[0]
+                                                                .productInfo
+                                                                .name
+                                                        }}
+                                                    </h2>
+                                                    <span class="text-sm">
+                                                        Brand:
+                                                        {{
+                                                            product.products[0]
+                                                                .productInfo
+                                                                .brand
+                                                        }}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    }
+                                </div>
+                            </div>
+                            } -->
+                        </div>
+                    </div>
+                </div>
+                <div class="w-[33%] md-lg:w-full">
+                    <div class="pl-3 md-lg:pl-0 md-lg:mt-5">
+                        @if ($cardProducts().length > 0) {
+                        <div
+                            class="bg-white p-3 text-slate-600 flex flex-col gap-3"
+                        >
+                            <h2 class="text-xl font-bold">Order Summary</h2>
+                            <div class="flex justify-between items-center">
+                                <span>{{ $buyProductItem() }} Items</span>
+                                <span>{{ $price() | currency }} </span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span>Shipping Fee </span>
+                                <span>{{ $shippingFee() | currency }} </span>
+                            </div>
+                            <div class="flex gap-2">
+                                <input
+                                    class="w-full px-3 py-2 border border-slate-200 outline-0 focus:border-green-500 rounded-sm"
+                                    type="text"
+                                    placeholder="Input Vauchar Coupon"
+                                />
+                                <button
+                                    class="px-5 py-[1px] bg-[#059473] text-white rounded-sm uppercase text-sm"
+                                >
+                                    Apply
+                                </button>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span>Total</span>
+                                <span class="text-lg text-[#059473]">
+                                    {{ $price() + $shippingFee() | currency }}
+                                </span>
+                            </div>
+                            <button
+                                class="px-5 py-[6px] rounded-sm hover:shadow-red-500/50 hover:shadow-lg bg-red-500 text-sm text-white uppercase"
+                                (click)="redirect()"
+                            >
+                                Process to Checkout ({{ $buyProductItem() }})
+                            </button>
+                        </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            } @else {
+            <a class="px-4 py-1 bg-indigo-500 text-white" routerLink="/shops">
+                Shop Now</a
+            >
+            }
+        </div>
+    </section>
+    <app-footer />
 </div>

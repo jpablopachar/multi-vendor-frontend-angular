@@ -9,7 +9,8 @@ import {
 } from '@angular/core'
 import { Router, RouterLink } from '@angular/router'
 import { FooterComponent, HeaderComponent } from '@app/components'
-import { CardProduct, UserInfo } from '@app/models'
+import { CardProduct, Product, UserInfo } from '@app/models'
+import { DiscountPipe } from '@app/pipes'
 import { selectUserInfo } from '@app/store/auth'
 import {
   cardActions,
@@ -37,6 +38,7 @@ import { ToastrService } from 'ngx-toastr'
     RouterLink,
     HeaderComponent,
     FooterComponent,
+    DiscountPipe,
   ],
   templateUrl: './card.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -90,6 +92,10 @@ export class CardComponent implements OnInit {
     }
   }
 
+  public trackByItems(index: number, item: Product): string {
+    return item.id;
+  }
+
   public redirect(): void {
     this._router.navigate(['/shipping'], {
       state: {
@@ -100,4 +106,10 @@ export class CardComponent implements OnInit {
       },
     });
   }
+
+  public inc(quantity: number, stock: number, cardId: string): void {}
+
+  public dec(quantity: number, cardId: string): void {}
+
+  public deleteCard(productId: string): void {}
 }

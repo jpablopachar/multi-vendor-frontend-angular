@@ -25,6 +25,7 @@ export interface CardProduct {
 
 export interface Product {
   id: string;
+  _id: string;
   quantity: number;
   productInfo: ProductInfo;
 }
