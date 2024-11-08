@@ -56,6 +56,63 @@ export const getCardProductsEffect = createEffect(
   { functional: true }
 );
 
+export const deleteCardProductEffect = createEffect(
+  (
+    actions$ = inject(Actions),
+    cardService: CardService = inject(CardService)
+  ) => {
+    return actions$.pipe(
+      ofType(cardActions.deleteCardProduct),
+      switchMap(({ cardId }) => {
+        return cardService.deleteCardProduct(cardId).pipe(
+          map((response: ResponseSuccess) => {
+            return cardActions.deleteCardProductSuccess({ response });
+          })
+        );
+      })
+    );
+  },
+  { functional: true }
+);
+
+export const quantityIncEffect = createEffect(
+  (
+    actions$ = inject(Actions),
+    cardService: CardService = inject(CardService)
+  ) => {
+    return actions$.pipe(
+      ofType(cardActions.quantityInc),
+      switchMap(({ cardId }) => {
+        return cardService.quantityInc(cardId).pipe(
+          map((response: ResponseSuccess) => {
+            return cardActions.quantityIncSuccess({ response });
+          })
+        );
+      })
+    );
+  },
+  { functional: true }
+);
+
+export const quantityDecEffect = createEffect(
+  (
+    actions$ = inject(Actions),
+    cardService: CardService = inject(CardService)
+  ) => {
+    return actions$.pipe(
+      ofType(cardActions.quantityDec),
+      switchMap(({ cardId }) => {
+        return cardService.quantityDec(cardId).pipe(
+          map((response: ResponseSuccess) => {
+            return cardActions.quantityDecSuccess({ response });
+          })
+        );
+      })
+    );
+  },
+  { functional: true }
+);
+
 export const addProductToWishlistEffect = createEffect(
   (
     actions$ = inject(Actions),

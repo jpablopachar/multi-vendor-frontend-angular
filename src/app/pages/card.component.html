@@ -167,8 +167,7 @@
                                     </div>
                                 </ng-container>
                             </div>
-                            }
-                            <!-- @if ($outOfStockProducts().length > 0) {
+                            } @if ($outOfStockProducts().length > 0) {
                             <div class="flex flex-col gap-3">
                                 <div class="bg-white p-4">
                                     <h2
@@ -180,7 +179,7 @@
                                 </div>
                                 <div class="bg-white p-4">
                                     @for (product of $outOfStockProducts();
-                                    track product.shopName;) {
+                                    track product._id;) {
                                     <div class="w-full flex flex-wrap">
                                         <div
                                             class="flex sm:w-full gap-2 w-7/12"
@@ -192,7 +191,6 @@
                                                     class="w-[80px] h-[80px]"
                                                     [src]="
                                                         product.products[0]
-                                                            .productInfo
                                                             .images[0]
                                                     "
                                                     alt=""
@@ -205,7 +203,6 @@
                                                     >
                                                         {{
                                                             product.products[0]
-                                                                .productInfo
                                                                 .name
                                                         }}
                                                     </h2>
@@ -213,10 +210,81 @@
                                                         Brand:
                                                         {{
                                                             product.products[0]
-                                                                .productInfo
                                                                 .brand
                                                         }}
                                                     </span>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="flex justify-between w-5/12 sm:w-full sm:mt-3"
+                                            >
+                                                <div class="pl-4 sm:pl-0">
+                                                    <!-- <h2 class='text-lg text-orange-500'>${p.products[0].price - Math.floor((p.products[0].price * p.products[0].discount) / 100 )}</h2> -->
+                                                    <h2
+                                                        class="text-lg text-orange-500"
+                                                    >
+                                                        {{
+                                                            product.products[0]
+                                                                .price
+                                                                | appDiscount
+                                                                    : product
+                                                                          .products[0]
+                                                                          .discount
+                                                                | currency
+                                                        }}
+                                                    </h2>
+                                                    <p class="line-through">
+                                                        {{
+                                                            product.products[0]
+                                                                .price
+                                                                | currency
+                                                        }}
+                                                    </p>
+                                                    <p>
+                                                        -{{
+                                                            product.products[0]
+                                                                .discount
+                                                        }}%
+                                                    </p>
+                                                </div>
+                                                <div
+                                                    class="flex gap-2 flex-col"
+                                                >
+                                                    <div
+                                                        class="flex bg-slate-200 h-[30px] justify-center items-center text-xl"
+                                                    >
+                                                        <div
+                                                            class="px-3 cursor-pointer"
+                                                            (click)="
+                                                                dec(
+                                                                    product.quantity,
+                                                                    product._id
+                                                                )
+                                                            "
+                                                        >
+                                                            -
+                                                        </div>
+                                                        <div class="px-3">
+                                                            {{
+                                                                product.quantity
+                                                            }}
+                                                        </div>
+                                                        <div
+                                                            class="px-3 cursor-pointer"
+                                                        >
+                                                            +
+                                                        </div>
+                                                    </div>
+                                                    <button
+                                                        class="px-5 py-[3px] bg-red-500 text-white"
+                                                        (click)="
+                                                            deleteCard(
+                                                                product._id
+                                                            )
+                                                        "
+                                                    >
+                                                        Delete
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
@@ -224,7 +292,7 @@
                                     }
                                 </div>
                             </div>
-                            } -->
+                            }
                         </div>
                     </div>
                 </div>

@@ -67,6 +67,45 @@ const cardFeature = createFeature({
       })
     ),
     on(
+      cardActions.deleteCardProduct,
+      (state: CardState): CardState => ({
+        ...state,
+      })
+    ),
+    on(
+      cardActions.deleteCardProductSuccess,
+      (state: CardState, { response }): CardState => ({
+        ...state,
+        successMessage: response.message,
+      })
+    ),
+    on(
+      cardActions.quantityInc,
+      (state: CardState): CardState => ({
+        ...state,
+      })
+    ),
+    on(
+      cardActions.quantityIncSuccess,
+      (state: CardState, { response }): CardState => ({
+        ...state,
+        successMessage: response.message,
+      })
+    ),
+    on(
+      cardActions.quantityDec,
+      (state: CardState): CardState => ({
+        ...state,
+      })
+    ),
+    on(
+      cardActions.quantityDecSuccess,
+      (state: CardState, { response }): CardState => ({
+        ...state,
+        successMessage: response.message,
+      })
+    ),
+    on(
       cardActions.addProductToWishlist,
       (state: CardState): CardState => ({
         ...state,

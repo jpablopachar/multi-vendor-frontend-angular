@@ -7,7 +7,7 @@ export interface GetCardProductsResponse {
   price: number;
   cardProductCount: number;
   shippingFee: number;
-  outOfStockProducts: any[];
+  outOfStockProducts: OutOfStockProduct[];
   buyProductItem: number;
 }
 
@@ -59,4 +59,14 @@ export interface AddProductToWishlistRequest {
   discount: number;
   rating: number;
   slug: string;
+}
+
+export interface OutOfStockProduct {
+  _id:       string;
+  userId:    string;
+  productId: string;
+  quantity:  number;
+  createdAt: Date;
+  updatedAt: Date;
+  products:  ProductInfo[];
 }

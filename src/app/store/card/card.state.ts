@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { CardProduct } from "@app/models"
+import { CardProduct, OutOfStockProduct } from "@app/models"
 
 export interface CardState {
   cardProducts: CardProduct[];
@@ -10,6 +10,6 @@ export interface CardState {
   errorMessage: string;
   successMessage: string;
   shippingFee: number;
-  outOfStockProducts: any[];
+  outOfStockProducts: OutOfStockProduct[];
   buyProductItem: number;
 }

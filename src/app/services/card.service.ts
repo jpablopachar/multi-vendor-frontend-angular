@@ -34,6 +34,26 @@ export class CardService {
     );
   }
 
+  public deleteCardProduct(cardId: string): Observable<ResponseSuccess> {
+    return this._http.delete<ResponseSuccess>(
+      `${this._url}/delete-card-product/${cardId}`
+    );
+  }
+
+  public quantityInc(cardId: string): Observable<ResponseSuccess> {
+    return this._http.put<ResponseSuccess>(
+      `${this._url}/quantity-inc/${cardId}`,
+      null
+    );
+  }
+
+  public quantityDec(cardId: string): Observable<ResponseSuccess> {
+    return this._http.put<ResponseSuccess>(
+      `${this._url}/quantity-dec/${cardId}`,
+      null
+    );
+  }
+
   public addToWishlist(
     body: AddProductToWishlistRequest
   ): Observable<ResponseSuccess> {

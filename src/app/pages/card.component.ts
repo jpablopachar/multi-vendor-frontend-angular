@@ -9,7 +9,7 @@ import {
 } from '@angular/core'
 import { Router, RouterLink } from '@angular/router'
 import { FooterComponent, HeaderComponent } from '@app/components'
-import { CardProduct, Product, UserInfo } from '@app/models'
+import { CardProduct, OutOfStockProduct, Product, UserInfo } from '@app/models'
 import { DiscountPipe } from '@app/pipes'
 import { selectUserInfo } from '@app/store/auth'
 import {
@@ -59,9 +59,8 @@ export class CardComponent implements OnInit {
     this._store.selectSignal(selectBuyProductItem);
   public $shippingFee: Signal<number> =
     this._store.selectSignal(selectShippingFee);
-  public $outOfStockProducts: Signal<CardProduct[]> = this._store.selectSignal(
-    selectOutOfStockProducts
-  );
+  public $outOfStockProducts: Signal<OutOfStockProduct[]> =
+    this._store.selectSignal(selectOutOfStockProducts);
 
   public faArrowRight: IconDefinition = faArrowRight;
 
@@ -107,9 +106,20 @@ export class CardComponent implements OnInit {
     });
   }
 
-  public inc(quantity: number, stock: number, cardId: string): void {}
+  public inc(quantity: number, stock: number, cardId: string): void {
+    const temp: number = quantity + 1;
 
-  public dec(quantity: number, cardId: string): void {}
+    if (temp <= stock)
+      this._store.dispatch(cardActions.quantityInc({ cardId }));
+  }
 
-  public deleteCard(productId: string): void {}
+  public dec(quantity: number, cardId: string): void {
+    const temp: number = quantity - 1;
+
+    if (temp !== 0) this._store.dispatch(cardActions.quantityDec({ cardId }));
+  }
+
+  public deleteCard(productId: string): void {
+    this._store.dispatch(cardActions.deleteCardProduct({ cardId: productId }));
+  }
 }
