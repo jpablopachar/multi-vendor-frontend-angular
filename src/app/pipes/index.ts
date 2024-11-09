@@ -1,1 +1,1 @@
-export * from './discount.pipe'
+export * from './math-operations.pipe'

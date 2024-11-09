@@ -10,7 +10,7 @@ import {
 import { Router, RouterLink } from '@angular/router'
 import { FooterComponent, HeaderComponent } from '@app/components'
 import { CardProduct, OutOfStockProduct, Product, UserInfo } from '@app/models'
-import { DiscountPipe } from '@app/pipes'
+import { MathOperationsPipe } from '@app/pipes'
 import { selectUserInfo } from '@app/store/auth'
 import {
   cardActions,
@@ -38,7 +38,7 @@ import { ToastrService } from 'ngx-toastr'
     RouterLink,
     HeaderComponent,
     FooterComponent,
-    DiscountPipe,
+    MathOperationsPipe,
   ],
   templateUrl: './card.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,

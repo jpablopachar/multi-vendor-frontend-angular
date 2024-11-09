@@ -36,3 +36,13 @@ export interface Category {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export interface ProductPriceRangeLatestResponse {
+  latestProduct: ProductInfo[][];
+  priceRange: PriceRange;
+}
+
+export interface PriceRange {
+  low: number;
+  high: number;
+}

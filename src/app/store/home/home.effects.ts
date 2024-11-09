@@ -1,5 +1,9 @@
 import { inject } from '@angular/core'
-import { GetCategoriesResponse, GetProductsResponse } from '@app/models'
+import {
+  GetCategoriesResponse,
+  GetProductsResponse,
+  ProductPriceRangeLatestResponse,
+} from '@app/models'
 import { HomeService } from '@app/services'
 import { Actions, createEffect, ofType } from '@ngrx/effects'
 import { map, switchMap } from 'rxjs'
@@ -35,6 +39,25 @@ export const getProductsEffect = createEffect(
         return homeService.getProducts().pipe(
           map((response: GetProductsResponse) => {
             return homeActions.getProductsSuccess({ response });
+          })
+        );
+      })
+    );
+  },
+  { functional: true }
+);
+
+export const priceRangeProductEffect = createEffect(
+  (
+    actions$ = inject(Actions),
+    homeService: HomeService = inject(HomeService)
+  ) => {
+    return actions$.pipe(
+      ofType(homeActions.priceRangeProduct),
+      switchMap(() => {
+        return homeService.priceRangeProduct().pipe(
+          map((response: ProductPriceRangeLatestResponse) => {
+            return homeActions.priceRangeProductSuccess({ response });
           })
         );
       })

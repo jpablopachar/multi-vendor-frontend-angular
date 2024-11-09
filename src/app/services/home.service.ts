@@ -1,6 +1,10 @@
 import { HttpClient } from '@angular/common/http'
 import { inject, Injectable } from '@angular/core'
-import { GetCategoriesResponse, GetProductsResponse } from '@app/models'
+import {
+  GetCategoriesResponse,
+  GetProductsResponse,
+  ProductPriceRangeLatestResponse,
+} from '@app/models'
 import { environment } from '@src/environments/environment'
 import { Observable } from 'rxjs'
 
@@ -18,5 +22,11 @@ export class HomeService {
 
   public getProducts(): Observable<GetProductsResponse> {
     return this._http.get<GetProductsResponse>(`${this._url}/get-products`);
+  }
+
+  public priceRangeProduct(): Observable<ProductPriceRangeLatestResponse> {
+    return this._http.get<ProductPriceRangeLatestResponse>(
+      `${this._url}/product-price-range-latest`
+    );
   }
 }

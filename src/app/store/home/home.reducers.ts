@@ -62,6 +62,20 @@ const homeFeature = createFeature({
         topRatedProduct: response.topRatedProduct,
         discountProduct: response.discountProduct,
       })
+    ),
+    on(
+      homeActions.priceRangeProduct,
+      (state: HomeState): HomeState => ({
+        ...state,
+      })
+    ),
+    on(
+      homeActions.priceRangeProductSuccess,
+      (state: HomeState, { response }): HomeState => ({
+        ...state,
+        latestProduct: response.latestProduct,
+        priceRange: response.priceRange,
+      })
     )
   ),
 });
@@ -74,4 +88,7 @@ export const {
   selectLatestProduct,
   selectTopRatedProduct,
   selectDiscountProduct,
+  selectPriceRange,
+  selectTotalProduct,
+  selectParPage,
 } = homeFeature;

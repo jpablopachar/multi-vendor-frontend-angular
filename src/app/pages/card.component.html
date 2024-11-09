@@ -101,7 +101,8 @@
                                                     {{
                                                         product.productInfo
                                                             .price
-                                                            | appDiscount
+                                                            | appMathOperations
+                                                                : "discount"
                                                                 : product
                                                                       .productInfo
                                                                       .discount
@@ -226,7 +227,8 @@
                                                         {{
                                                             product.products[0]
                                                                 .price
-                                                                | appDiscount
+                                                                | appMathOperations
+                                                                    : "discount"
                                                                     : product
                                                                           .products[0]
                                                                           .discount

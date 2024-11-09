@@ -71,6 +71,127 @@
                             Price
                         </h2>
                         <!-- Price Range -->
+                        <div>
+                            <span class="text-slate-800 font-bold text-lg">
+                                {{
+                                    $state().values[0]
+                                        | appMathOperations : "simple"
+                                        | currency
+                                }}
+                                -
+                                {{
+                                    $state().values[1]
+                                        | appMathOperations : "simple"
+                                        | currency
+                                }}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="py-3 flex flex-col gap-4">
+                        <h2 class="text-3xl font-bold mb-3 text-slate-600">
+                            Rating
+                        </h2>
+                        <div class="flex flex-col gap-3">
+                            <ng-container *ngFor="let r of [5, 4, 3, 2, 1]">
+                                <div
+                                    class="text-orange-500 flex justify-start items-start gap-2 text-xl cursor-pointer"
+                                >
+                                    <fa-icon
+                                        *ngFor="let star of [1, 2, 3, 4, 5]"
+                                        [icon]="star <= r ? fasStar : farStar"
+                                    ></fa-icon>
+                                </div>
+                            </ng-container>
+                            <div
+                                class="text-orange-500 flex justify-start items-start gap-2 text-xl cursor-pointer"
+                                (click)="resetRating()"
+                            >
+                                <fa-icon
+                                    *ngFor="let star of [1, 2, 3, 4, 5]"
+                                    [icon]="farStar"
+                                ></fa-icon>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="py-5 flex flex-col gap-4 md:hidden">
+                        <app-products
+                            [title]="'Latest Product'"
+                            [$products]="$latestProduct()"
+                        />
+                    </div>
+                </div>
+                <div class="w-9/12 md-lg:w-8/12 md:w-full">
+                    <div class="pl-8 md:pl-0">
+                        <div
+                            class="py-4 bg-white mb-10 px-3 rounded-md flex justify-between items-start border"
+                        >
+                            <h2 class="text-lg font-medium text-slate-600">
+                                ({{ $totalProduct() }} Products)
+                            </h2>
+                            <div class="flex justify-center items-center gap-3">
+                                <select
+                                    name=""
+                                    id=""
+                                    class="p-1 border outline-0 text-slate-600 font-semibold"
+                                    (change)="selectChange($event)"
+                                >
+                                    <option value="">Sort By</option>
+                                    <option value="low-to-high">
+                                        Low to High Price
+                                    </option>
+                                    <option value="high-to-low">
+                                        High to Low Price
+                                    </option>
+                                </select>
+                                <div
+                                    class="flex justify-center items-start gap-4 md-lg:hidden"
+                                >
+                                    <div
+                                        class="p-2 text-slate-600 hover:bg-slate-300 cursor-pointer rounded-sm"
+                                        [ngClass]="
+                                            $styles() === 'grid'
+                                                ? 'bg-slate-300'
+                                                : null
+                                        "
+                                        (click)="$styles.set('grid')"
+                                    >
+                                        <fa-icon [icon]="faGrin"></fa-icon>
+                                    </div>
+                                    <div
+                                        class="p-2 text-slate-600 hover:bg-slate-300 cursor-pointer rounded-sm"
+                                        [ngClass]="
+                                            $styles() === 'list'
+                                                ? 'bg-slate-300'
+                                                : null
+                                        "
+                                        (click)="$styles.set('grid')"
+                                    >
+                                        <fa-icon [icon]="faList"></fa-icon>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pb-8">
+                            <app-shop-products
+                                [styles]="$styles()"
+                                [$products]="$products()"
+                            />
+                        </div>
+                        <div>
+                            @if ($totalProduct() > $parPage()) {
+                            <app-pagination
+                                [$pageNumber]="$pageNumber()"
+                                [$totalItem]="$totalProduct()"
+                                [$parPage]="$parPage()"
+                                [$showItem]="
+                                    $totalProduct()
+                                        | appMathOperations
+                                            : 'division'
+                                            : $parPage()
+                                "
+                            />
+                            }
+                        </div>
                     </div>
                 </div>
             </div>
