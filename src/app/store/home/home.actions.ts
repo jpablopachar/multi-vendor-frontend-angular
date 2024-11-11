@@ -2,6 +2,8 @@ import {
   GetCategoriesResponse,
   GetProductsResponse,
   ProductPriceRangeLatestResponse,
+  QueryProductsRequest,
+  QueryProductsResponse,
 } from '@app/models'
 import { createActionGroup, emptyProps, props } from '@ngrx/store'
 
@@ -16,6 +18,12 @@ export const homeActions = createActionGroup({
     priceRangeProduct: emptyProps(),
     priceRangeProductSuccess: props<{
       response: ProductPriceRangeLatestResponse;
+    }>(),
+    queryProducts: props<{
+      query: QueryProductsRequest;
+    }>(),
+    queryProductsSuccess: props<{
+      response: QueryProductsResponse;
     }>(),
   },
 });

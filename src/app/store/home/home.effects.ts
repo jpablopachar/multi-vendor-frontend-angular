@@ -3,6 +3,7 @@ import {
   GetCategoriesResponse,
   GetProductsResponse,
   ProductPriceRangeLatestResponse,
+  QueryProductsResponse,
 } from '@app/models'
 import { HomeService } from '@app/services'
 import { Actions, createEffect, ofType } from '@ngrx/effects'
@@ -58,6 +59,25 @@ export const priceRangeProductEffect = createEffect(
         return homeService.priceRangeProduct().pipe(
           map((response: ProductPriceRangeLatestResponse) => {
             return homeActions.priceRangeProductSuccess({ response });
+          })
+        );
+      })
+    );
+  },
+  { functional: true }
+);
+
+export const queryProductsEffect = createEffect(
+  (
+    actions$ = inject(Actions),
+    homeService: HomeService = inject(HomeService)
+  ) => {
+    return actions$.pipe(
+      ofType(homeActions.queryProducts),
+      switchMap(({ query }) => {
+        return homeService.queryProducts(query).pipe(
+          map((response: QueryProductsResponse) => {
+            return homeActions.queryProductsSuccess({ response });
           })
         );
       })

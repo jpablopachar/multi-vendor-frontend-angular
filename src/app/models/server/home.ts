@@ -46,3 +46,19 @@ export interface PriceRange {
   low: number;
   high: number;
 }
+
+export interface QueryProductsResponse {
+  products: ProductInfo[];
+  totalProducts: number;
+  parPage: number;
+}
+
+export interface QueryProductsRequest {
+  category: string;
+  rating: string | number;
+  low: number;
+  high: number;
+  sortPrice: string;
+  pageNumber: number;
+  searchValue?: string;
+}

@@ -6,6 +6,7 @@ import {
   OnInit,
   Signal,
   WritableSignal,
+  effect,
   inject,
   signal,
 } from '@angular/core'
@@ -18,7 +19,12 @@ import {
   ShopProductsComponent,
   StylesType,
 } from '@app/components'
-import { Category, PriceRange, ProductInfo } from '@app/models'
+import {
+  Category,
+  PriceRange,
+  ProductInfo,
+  QueryProductsRequest,
+} from '@app/models'
 import { MathOperationsPipe } from '@app/pipes'
 import {
   homeActions,
@@ -95,7 +101,7 @@ export class ShopsComponent implements OnInit {
   public $sortPrice: WritableSignal<string> = signal('');
   public $category: WritableSignal<string> = signal('');
   public $state: WritableSignal<{ values: number[] }> = signal({
-    values: [0, 100],
+    values: [this.$priceRange().low, this.$priceRange().high],
   });
 
   public sliderOptions: Options = SLIDER_OPTIONS;
@@ -104,6 +110,52 @@ export class ShopsComponent implements OnInit {
   public faArrowRight: IconDefinition = faArrowRight;
   public faGrin: IconDefinition = faGrin;
   public faList: IconDefinition = faList;
+
+  constructor() {
+    effect(
+      (): void => {
+        const priceRange = this.$priceRange();
+
+        if (priceRange) {
+          this.$state.set({
+            values: [priceRange.low, priceRange.high],
+          });
+        }
+      },
+      { allowSignalWrites: true }
+    );
+
+    effect(
+      (): void => {
+        const state: { values: number[] } = this.$state();
+        const category: string = this.$category();
+        const rating: string | number = this.$rating();
+        const sortPrice: string = this.$sortPrice();
+        const pageNumber: number = this.$pageNumber();
+
+        if (
+          state.values[0] ||
+          state.values[1] ||
+          category ||
+          rating ||
+          sortPrice ||
+          pageNumber
+        ) {
+          const query: QueryProductsRequest = {
+            low: state.values[0],
+            high: state.values[1],
+            category,
+            rating,
+            sortPrice,
+            pageNumber,
+          };
+
+          this._store.dispatch(homeActions.queryProducts({ query }));
+        }
+      },
+      { allowSignalWrites: true }
+    );
+  }
 
   public ngOnInit(): void {
     this._store.dispatch(homeActions.priceRangeProduct());
@@ -124,7 +176,18 @@ export class ShopsComponent implements OnInit {
   }
 
   public resetRating(): void {
-    this.$rating.set(0);
+    this.$rating.set('');
+
+    const query: QueryProductsRequest = {
+      low: this.$state().values[0],
+      high: this.$state().values[1],
+      category: this.$category(),
+      rating: '',
+      sortPrice: this.$sortPrice(),
+      pageNumber: this.$pageNumber(),
+    };
+
+    this._store.dispatch(homeActions.queryProducts({ query }));
   }
 
   public selectChange(event: Event): void {

@@ -76,6 +76,21 @@ const homeFeature = createFeature({
         latestProduct: response.latestProduct,
         priceRange: response.priceRange,
       })
+    ),
+    on(
+      homeActions.queryProducts,
+      (state: HomeState): HomeState => ({
+        ...state,
+      })
+    ),
+    on(
+      homeActions.queryProductsSuccess,
+      (state: HomeState, { response }): HomeState => ({
+        ...state,
+        products: response.products,
+        totalProduct: response.totalProducts,
+        parPage: response.parPage,
+      })
     )
   ),
 });
