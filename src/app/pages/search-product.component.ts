@@ -1,7 +1,4 @@
-import {
-  NgxSliderModule,
-  Options
-} from '@angular-slider/ngx-slider'
+import { NgxSliderModule, Options } from '@angular-slider/ngx-slider'
 import { CommonModule } from '@angular/common'
 import {
   ChangeDetectionStrategy,
@@ -13,7 +10,7 @@ import {
   inject,
   signal,
 } from '@angular/core'
-import { Router } from '@angular/router'
+import { ActivatedRoute, Params, Router } from '@angular/router'
 import {
   FooterComponent,
   HeaderComponent,
@@ -78,6 +75,7 @@ const SLIDER_OPTIONS: Options = {
 export class SearchProductComponent implements OnInit {
   private readonly _store = inject(Store);
   private readonly _router: Router = inject(Router);
+  private readonly _route: ActivatedRoute = inject(ActivatedRoute);
 
   public $products: Signal<ProductInfo[]> =
     this._store.selectSignal(selectProducts);
@@ -96,10 +94,12 @@ export class SearchProductComponent implements OnInit {
   public $rating: WritableSignal<number | string> = signal('');
   public $pageNumber: WritableSignal<number> = signal(1);
   public $sortPrice: WritableSignal<string> = signal('');
-  public $category: WritableSignal<string> = signal('');
   public $state: WritableSignal<{ values: number[] }> = signal({
     values: [this.$priceRange().low!, this.$priceRange().high!],
   });
+
+  private $_category: WritableSignal<string> = signal('');
+  private $_searchValue: WritableSignal<string> = signal('');
 
   public sliderOptions!: Options;
   public low!: number | null;
@@ -142,10 +142,11 @@ export class SearchProductComponent implements OnInit {
     effect(
       (): void => {
         const state: { values: number[] } = this.$state();
-        const category: string = this.$category();
+        const category: string = this.$_category();
         const rating: string | number = this.$rating();
         const sortPrice: string = this.$sortPrice();
         const pageNumber: number = this.$pageNumber();
+        const searchValue: string = this.$_searchValue();
 
         if (
           state.values[0] ||
@@ -153,18 +154,10 @@ export class SearchProductComponent implements OnInit {
           category ||
           rating ||
           sortPrice ||
+          searchValue ||
           pageNumber
         ) {
-          const query: QueryProductsRequest = {
-            low: state.values[0],
-            high: state.values[1],
-            category,
-            rating,
-            sortPrice,
-            pageNumber,
-          };
-
-          this._store.dispatch(homeActions.queryProducts({ query }));
+          this._queryProducts();
         }
       },
       { allowSignalWrites: true }
@@ -172,17 +165,12 @@ export class SearchProductComponent implements OnInit {
   }
 
   public ngOnInit(): void {
+    this._route.queryParams.subscribe((params: Params): void => {
+      this.$_category.set(params['category']);
+      this.$_searchValue.set(params['value']);
+    });
+
     this._store.dispatch(homeActions.priceRangeProduct());
-  }
-
-  public queryCategory(event: Event, value: string): void {
-    const target = event.target as HTMLInputElement;
-
-    if (target.checked) {
-      this.$category.set(value);
-    } else {
-      this.$category.set('');
-    }
   }
 
   public setRating(value: number | string): void {
@@ -192,16 +180,7 @@ export class SearchProductComponent implements OnInit {
   public resetRating(): void {
     this.$rating.set('');
 
-    const query: QueryProductsRequest = {
-      low: this.$state().values[0],
-      high: this.$state().values[1],
-      category: this.$category(),
-      rating: '',
-      sortPrice: this.$sortPrice(),
-      pageNumber: this.$pageNumber(),
-    };
-
-    this._store.dispatch(homeActions.queryProducts({ query }));
+    this._queryProducts(true);
   }
 
   public selectChange(event: Event): void {
@@ -218,5 +197,19 @@ export class SearchProductComponent implements OnInit {
     const response: PriceRange = { low: this.low, high: this.high };
 
     this._store.dispatch(homeActions.updatePriceRange({ response }));
+  }
+
+  private _queryProducts(reset?: boolean): void {
+    const query: QueryProductsRequest = {
+      low: this.$state().values[0],
+      high: this.$state().values[1],
+      category: this.$_category()!,
+      rating: reset ? '' : this.$rating(),
+      sortPrice: this.$sortPrice(),
+      pageNumber: this.$pageNumber(),
+      searchValue: this.$_searchValue()!,
+    };
+
+    this._store.dispatch(homeActions.queryProducts({ query }));
   }
 }
