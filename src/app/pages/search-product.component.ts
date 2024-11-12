@@ -10,7 +10,7 @@ import {
   inject,
   signal,
 } from '@angular/core'
-import { ActivatedRoute, Params, Router } from '@angular/router'
+import { ActivatedRoute, Params } from '@angular/router'
 import {
   FooterComponent,
   HeaderComponent,
@@ -74,7 +74,6 @@ const SLIDER_OPTIONS: Options = {
 })
 export class SearchProductComponent implements OnInit {
   private readonly _store = inject(Store);
-  private readonly _router: Router = inject(Router);
   private readonly _route: ActivatedRoute = inject(ActivatedRoute);
 
   public $products: Signal<ProductInfo[]> =

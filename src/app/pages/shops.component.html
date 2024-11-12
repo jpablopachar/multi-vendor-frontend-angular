@@ -70,7 +70,7 @@
                         <h2 class="text-3xl font-bold mb-3 text-slate-600">
                             Price
                         </h2>
-                        @if ($priceRange().low && $priceRange().high) {
+                        @if (low && high) {
                         <ngx-slider
                             [(value)]="low!"
                             [(highValue)]="high!"

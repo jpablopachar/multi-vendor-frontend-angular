@@ -46,31 +46,11 @@
                             : 'md:h-auto md:overflow-auto md:mb-0'
                     "
                 >
-                    <!-- <h2 class="text-3xl font-bold mb-3 text-slate-600">
-                        Category
-                    </h2>
-                    <div class="py-2">
-                        @for (category of $categories(); track category._id;) {
-                        <div class="flex justify-start items-center gap-2 py-1">
-                            <input
-                                type="checkbox"
-                                [id]="category.name"
-                                [checked]="$category() === category.name"
-                                (change)="queryCategory($event, category.name)"
-                            />
-                            <label
-                                class="text-slate-600 block cursor-pointer"
-                                [htmlFor]="category.name"
-                                >{{ category.name }}</label
-                            >
-                        </div>
-                        }
-                    </div> -->
                     <div class="py-2 flex flex-col gap-5">
                         <h2 class="text-3xl font-bold mb-3 text-slate-600">
                             Price
                         </h2>
-                        @if ($priceRange().low && $priceRange().high) {
+                        @if (low && high) {
                         <ngx-slider
                             [(value)]="low!"
                             [(highValue)]="high!"
