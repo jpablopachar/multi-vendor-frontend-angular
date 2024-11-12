@@ -43,8 +43,8 @@ export interface ProductPriceRangeLatestResponse {
 }
 
 export interface PriceRange {
-  low: number;
-  high: number;
+  low: number | null;
+  high: number | null;
 }
 
 export interface QueryProductsResponse {

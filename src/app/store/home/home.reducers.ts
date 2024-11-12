@@ -10,7 +10,7 @@ const homeInitialState: HomeState = {
   latestProduct: [],
   topRatedProduct: [],
   discountProduct: [],
-  priceRange: { low: 0, high: 100 },
+  priceRange: { low: null, high: null },
   product: null,
   relatedProducts: [],
   moreProducts: [],
@@ -91,7 +91,14 @@ const homeFeature = createFeature({
         totalProduct: response.totalProducts,
         parPage: response.parPage,
       })
-    )
+    ),
+    on(
+      homeActions.updatePriceRange,
+      (state: HomeState, { response }): HomeState => ({
+        ...state,
+        priceRange: response,
+      })
+    ),
   ),
 });
 

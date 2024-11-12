@@ -10,7 +10,7 @@ export interface HomeState {
   latestProduct: ProductInfo[][];
   topRatedProduct: ProductInfo[][];
   discountProduct: ProductInfo[][];
-  priceRange: { low: number, high: number };
+  priceRange: { low: number | null, high: number | null };
   product: ProductInfo | null;
   relatedProducts: ProductInfo[];
   moreProducts: ProductInfo[];

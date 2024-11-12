@@ -1,6 +1,7 @@
 import {
   GetCategoriesResponse,
   GetProductsResponse,
+  PriceRange,
   ProductPriceRangeLatestResponse,
   QueryProductsRequest,
   QueryProductsResponse,
@@ -25,5 +26,6 @@ export const homeActions = createActionGroup({
     queryProductsSuccess: props<{
       response: QueryProductsResponse;
     }>(),
+    updatePriceRange: props<{ response: PriceRange }>(),
   },
 });

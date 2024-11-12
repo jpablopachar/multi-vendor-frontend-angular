@@ -1,4 +1,7 @@
-import { NgxSliderModule, Options } from '@angular-slider/ngx-slider'
+import {
+  NgxSliderModule,
+  Options
+} from '@angular-slider/ngx-slider'
 import { CommonModule } from '@angular/common'
 import {
   ChangeDetectionStrategy,
@@ -49,15 +52,10 @@ import {
 import { Store } from '@ngrx/store'
 
 const SLIDER_OPTIONS: Options = {
-  floor: 0,
-  ceil: 1000,
   step: 5,
   showTicks: false,
   animate: false,
   showSelectionBar: true,
-  translate: (value: number): string => {
-    return `$${value}`;
-  },
 };
 
 @Component({
@@ -71,7 +69,6 @@ const SLIDER_OPTIONS: Options = {
     HeaderComponent,
     FooterComponent,
     ProductsComponent,
-    ShopsComponent,
     PaginationComponent,
     ShopProductsComponent,
   ],
@@ -101,10 +98,14 @@ export class ShopsComponent implements OnInit {
   public $sortPrice: WritableSignal<string> = signal('');
   public $category: WritableSignal<string> = signal('');
   public $state: WritableSignal<{ values: number[] }> = signal({
-    values: [this.$priceRange().low, this.$priceRange().high],
+    values: [this.$priceRange().low!, this.$priceRange().high!],
   });
 
-  public sliderOptions: Options = SLIDER_OPTIONS;
+  public sliderOptions!: Options;
+  public low!: number | null;
+  public high!: number | null;
+
+  public isPriceLRangeLoading: boolean = false;
   public fasStar: IconDefinition = fasStar;
   public farStar: IconDefinition = farStar;
   public faArrowRight: IconDefinition = faArrowRight;
@@ -117,9 +118,22 @@ export class ShopsComponent implements OnInit {
         const priceRange = this.$priceRange();
 
         if (priceRange) {
-          this.$state.set({
-            values: [priceRange.low, priceRange.high],
-          });
+          if (priceRange.low && priceRange.high) {
+            if (!this.isPriceLRangeLoading) {
+              this.sliderOptions = {
+                ...SLIDER_OPTIONS,
+                ceil: priceRange.high,
+                floor: priceRange.low,
+              };
+            }
+
+            this.low = priceRange.low;
+            this.high = priceRange.high;
+            this.isPriceLRangeLoading = true;
+            this.$state.set({
+              values: [priceRange.low, priceRange.high],
+            });
+          }
         }
       },
       { allowSignalWrites: true }
@@ -198,5 +212,11 @@ export class ShopsComponent implements OnInit {
 
   public onPageChange(page: number): void {
     console.log(page);
+  }
+
+  public onPriceChange(): void {
+    const response: PriceRange = { low: this.low, high: this.high };
+
+    this._store.dispatch(homeActions.updatePriceRange({ response }));
   }
 }
