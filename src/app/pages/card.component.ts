@@ -97,10 +97,10 @@ export class CardComponent implements OnInit {
 
   public redirect(): void {
     this._router.navigate(['/shipping'], {
-      state: {
+      queryParams: {
         products: this.$cardProducts(),
         price: this.$price(),
-        shipping_fee: this.$shippingFee(),
+        shippingFee: this.$shippingFee(),
         items: this.$buyProductItem(),
       },
     });
