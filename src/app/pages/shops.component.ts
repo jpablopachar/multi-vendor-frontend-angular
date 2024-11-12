@@ -13,7 +13,6 @@ import {
   inject,
   signal,
 } from '@angular/core'
-import { Router } from '@angular/router'
 import {
   FooterComponent,
   HeaderComponent,
@@ -77,7 +76,6 @@ const SLIDER_OPTIONS: Options = {
 })
 export class ShopsComponent implements OnInit {
   private readonly _store = inject(Store);
-  private readonly _router: Router = inject(Router);
 
   public $products: Signal<ProductInfo[]> =
     this._store.selectSignal(selectProducts);
@@ -105,7 +103,7 @@ export class ShopsComponent implements OnInit {
   public low!: number | null;
   public high!: number | null;
 
-  public isPriceLRangeLoading: boolean = false;
+  public isPriceLRangeLoading = false;
   public fasStar: IconDefinition = fasStar;
   public farStar: IconDefinition = farStar;
   public faArrowRight: IconDefinition = faArrowRight;
