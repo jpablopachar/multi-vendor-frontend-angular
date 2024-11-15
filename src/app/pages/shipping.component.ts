@@ -8,24 +8,35 @@ import {
   signal,
   WritableSignal,
 } from '@angular/core'
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
+import {
+  FormControl,
+  FormGroup,
+  NonNullableFormBuilder,
+  ReactiveFormsModule,
+  Validators
+} from '@angular/forms'
 import { ActivatedRoute, Params } from '@angular/router'
 import { FooterComponent, HeaderComponent } from '@app/components'
-import { CardProduct, UserInfo } from '@app/models'
+import { CardProduct, ShippingForm, UserInfo } from '@app/models'
 import { selectUserInfo } from '@app/store/auth'
 import { Store } from '@ngrx/store'
 
 @Component({
   selector: 'app-shipping',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, HeaderComponent, FooterComponent],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    HeaderComponent,
+    FooterComponent,
+  ],
   templateUrl: './shipping.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ShippingComponent implements OnInit {
   private readonly _store = inject(Store);
   private _route: ActivatedRoute = inject(ActivatedRoute);
-  private _formBuilder: FormBuilder = inject(FormBuilder);
+  private _formBuilder: NonNullableFormBuilder = inject(NonNullableFormBuilder);
 
   public $userInfo: Signal<UserInfo | null> =
     this._store.selectSignal(selectUserInfo);
@@ -35,14 +46,35 @@ export class ShippingComponent implements OnInit {
   public $shippingFee: WritableSignal<number> = signal(0);
   public $items: WritableSignal<number> = signal(0);
 
-  public shippingForm = this._formBuilder.group({
-    name: ['', Validators.required],
-    address: ['', Validators.required],
-    phone: ['', Validators.required],
-    post: ['', Validators.required],
-    province: ['', Validators.required],
-    city: ['', Validators.required],
-    area: ['', Validators.required],
+  public shippingForm: FormGroup<ShippingForm> = this._formBuilder.group({
+    name: new FormControl<string>('', {
+      nonNullable: true,
+      validators: [Validators.required],
+    }),
+    address: new FormControl<string>('', {
+      nonNullable: true,
+      validators: [Validators.required],
+    }),
+    phone: new FormControl<string>('', {
+      nonNullable: true,
+      validators: [Validators.required],
+    }),
+    post: new FormControl<string>('', {
+      nonNullable: true,
+      validators: [Validators.required],
+    }),
+    province: new FormControl<string>('', {
+      nonNullable: true,
+      validators: [Validators.required],
+    }),
+    city: new FormControl<string>('', {
+      nonNullable: true,
+      validators: [Validators.required],
+    }),
+    area: new FormControl<string>('', {
+      nonNullable: true,
+      validators: [Validators.required],
+    }),
   });
 
   public ngOnInit(): void {
@@ -61,5 +93,11 @@ export class ShippingComponent implements OnInit {
       this.$shippingFee.set(shippingFee);
       this.$items.set(items);
     });
+  }
+
+  public save(): void {
+    /* if (this.shippingForm.invalid) return;
+
+    const { name, address, phone, post, province, city, area } = this.shippingForm.controls; */
   }
 }
