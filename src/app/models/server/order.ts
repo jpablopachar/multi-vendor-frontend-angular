@@ -1,5 +1,5 @@
-import { CardProduct } from "./card"
-import { ProductInfo } from "./home"
+import { CardProduct } from './card'
+import { ProductInfo } from './home'
 
 export interface PlaceOrderRequest {
   price: number;
@@ -8,6 +8,13 @@ export interface PlaceOrderRequest {
   items: number;
   shippingInfo: ShippingInfo;
   userId: string;
+}
+
+export interface PlaceOrderSuccessParams {
+  price: number;
+  items: number;
+  shippingFee: number;
+  orderId: string;
 }
 
 export interface PlaceOrderResponse {
@@ -49,4 +56,10 @@ export interface Order {
 export interface OrderQuery {
   customerId: string;
   status: string;
+}
+
+export interface PaymentParams {
+  price: number;
+  items: number;
+  orderId: string;
 }

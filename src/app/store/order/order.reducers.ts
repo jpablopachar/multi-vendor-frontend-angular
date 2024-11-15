@@ -51,7 +51,7 @@ const orderFeature = createFeature({
 });
 
 export const {
-  name: homeFeatureKey,
+  name: orderFeatureKey,
   reducer: orderReducer,
   selectSuccessMessage,
   selectErrorMessage,

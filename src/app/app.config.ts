@@ -14,6 +14,7 @@ import { routes } from './app.routes'
 import { AuthEffects, authFeatureKey, authReducer } from './store/auth'
 import { CardEffects, cardFeatureKey, cardReducer } from './store/card'
 import { HomeEffects, homeFeatureKey, homeReducer } from './store/home'
+import { OrderEffects, orderFeatureKey, orderReducer } from './store/order'
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -29,8 +30,9 @@ export const appConfig: ApplicationConfig = {
       [authFeatureKey]: authReducer,
       [cardFeatureKey]: cardReducer,
       [homeFeatureKey]: homeReducer,
+      [orderFeatureKey]: orderReducer,
     }),
-    provideEffects(AuthEffects, CardEffects, HomeEffects),
+    provideEffects(AuthEffects, CardEffects, HomeEffects, OrderEffects),
     provideStoreDevtools({
       maxAge: 25,
       logOnly: !isDevMode(),

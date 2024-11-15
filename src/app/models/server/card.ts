@@ -70,3 +70,10 @@ export interface OutOfStockProduct {
   updatedAt: Date;
   products:  ProductInfo[];
 }
+
+export interface ShippingParams {
+  products: CardProduct[];
+  price: number;
+  shippingFee: number;
+  items: number;
+}

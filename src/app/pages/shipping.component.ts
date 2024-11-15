@@ -1,3 +1,5 @@
+ 
+
 import { CommonModule } from '@angular/common'
 import {
   ChangeDetectionStrategy,
@@ -13,12 +15,26 @@ import {
   FormGroup,
   NonNullableFormBuilder,
   ReactiveFormsModule,
-  Validators
+  Validators,
 } from '@angular/forms'
-import { ActivatedRoute, Params } from '@angular/router'
+import { ActivatedRoute, RouterLink } from '@angular/router'
 import { FooterComponent, HeaderComponent } from '@app/components'
-import { CardProduct, ShippingForm, UserInfo } from '@app/models'
+import {
+  CardProduct,
+  PlaceOrderRequest,
+  Product,
+  ShippingForm,
+  ShippingParams,
+  UserInfo,
+} from '@app/models'
+import { MathOperationsPipe } from '@app/pipes'
 import { selectUserInfo } from '@app/store/auth'
+import { orderActions } from '@app/store/order'
+import {
+  FontAwesomeModule,
+  IconDefinition,
+} from '@fortawesome/angular-fontawesome'
+import { faChevronRight } from '@fortawesome/free-solid-svg-icons'
 import { Store } from '@ngrx/store'
 
 @Component({
@@ -27,8 +43,11 @@ import { Store } from '@ngrx/store'
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    FontAwesomeModule,
+    RouterLink,
     HeaderComponent,
     FooterComponent,
+    MathOperationsPipe,
   ],
   templateUrl: './shipping.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -45,6 +64,7 @@ export class ShippingComponent implements OnInit {
   public $price: WritableSignal<number> = signal(0);
   public $shippingFee: WritableSignal<number> = signal(0);
   public $items: WritableSignal<number> = signal(0);
+  public $res: WritableSignal<boolean> = signal(false);
 
   public shippingForm: FormGroup<ShippingForm> = this._formBuilder.group({
     name: new FormControl<string>('', {
@@ -77,27 +97,43 @@ export class ShippingComponent implements OnInit {
     }),
   });
 
+  public faChevronRight: IconDefinition = faChevronRight;
+
   public ngOnInit(): void {
     this._getParams();
   }
 
-  private _getParams(): void {
-    this._route.queryParams.subscribe((params: Params): void => {
-      const products: CardProduct[] = JSON.parse(params['products']);
-      const price = Number(params['price']);
-      const shippingFee = Number(params['shippingFee']);
-      const items = Number(params['items']);
+  public trackByFn(index: number, item: Product): string {
+    return item.id;
+  }
 
-      this.$products.set(products);
-      this.$price.set(price);
-      this.$shippingFee.set(shippingFee);
-      this.$items.set(items);
-    });
+  private _getParams(): void {
+    const params: ShippingParams = history.state.data;
+
+    const { items, price, products, shippingFee } = params;
+
+    this.$products.set(products);
+    this.$price.set(price);
+    this.$shippingFee.set(shippingFee);
+    this.$items.set(items);
   }
 
   public save(): void {
-    /* if (this.shippingForm.invalid) return;
+    if (this.shippingForm.invalid) return;
 
-    const { name, address, phone, post, province, city, area } = this.shippingForm.controls; */
+    this.$res.set(true);
+  }
+
+  public placeOrder(): void {
+    const request: PlaceOrderRequest = {
+      price: this.$price(),
+      products: this.$products(),
+      shippingFee: this.$shippingFee(),
+      items: this.$items(),
+      shippingInfo: this.shippingForm.getRawValue(),
+      userId: this.$userInfo()?.id || '',
+    };
+
+    this._store.dispatch(orderActions.placeOrder({ request }));
   }
 }

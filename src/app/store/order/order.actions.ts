@@ -3,7 +3,8 @@ import {
   GetOrdersResponse,
   OrderQuery,
   PlaceOrderRequest,
-  PlaceOrderResponse
+  PlaceOrderResponse,
+  PlaceOrderSuccessParams
 } from '@app/models'
 import { createActionGroup, emptyProps, props } from '@ngrx/store'
 
@@ -12,7 +13,7 @@ export const orderActions = createActionGroup({
   events: {
     messageClear: emptyProps(),
     placeOrder: props<{ request: PlaceOrderRequest }>(),
-    placeOrderSuccess: props<{ response: PlaceOrderResponse }>(),
+    placeOrderSuccess: props<{ params: PlaceOrderSuccessParams, response: PlaceOrderResponse }>(),
     getOrders: props<{ query: OrderQuery }>(),
     getOrdersSuccess: props<{ response: GetOrdersResponse }>(),
     getOrderDetails: props<{ query: { orderId: string } }>(),
